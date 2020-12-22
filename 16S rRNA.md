@@ -1,4 +1,4 @@
-![https://github.com/syq12345678/16S-rRNA/blob/master/picture/1.16S-rRNA%20general%20workflow.png]()
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/1.16S-rRNA%20general%20workflow.png)
 
 # 1.qiime2安装
 
