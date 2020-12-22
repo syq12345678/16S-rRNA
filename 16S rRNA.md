@@ -134,18 +134,28 @@ qiime --help
 
 ### 2.1.4Plugins
 
-- q2-alignment # 生成和操作多序列比对
-- q2-composition # 用于物种数据分析
+| q2-alignment          | 生成和操作多序列比对                             |
+| --------------------- | ------------------------------------------------ |
+| q2-composition        | 用于物种数据分析                                 |
+| q2-cutadapt           | 从序列数据中删除接头序列，引物和其他不需要的序列 |
+| q2-dada2              | 序列质量控制                                     |
+| q2-deblur             | 序列质量控制                                     |
+| q2-demux              | 混合测序样本拆分和查看序列质量                   |
+| q2-diversity          | 探索群落多样性                                   |
+| q2-emperor            | beta多样性3D可视化                               |
+| q2-feature-classifier | 物种注释                                         |
+| q2-feature-table      |                                                  |
+| q2-fragment-insertion |                                                  |
+|                       |                                                  |
+|                       |                                                  |
+|                       |                                                  |
+|                       |                                                  |
+|                       |                                                  |
+|                       |                                                  |
+|                       |                                                  |
 
-- q2-cutadapt # 从序列数据中删除接头序列，引物和其他不需要的序列
-- <u>q2-dada2 # 序列质量控制</u>
-- q2-deblur # 序列质量控制
-- <u>q2-demux # 混合测序样本拆分和查看序列质量</u>
-- <u>q2-diversity # 探索群落多样性</u>
-- q2-emperor # beta多样性3D可视化
-- <u>q2-feature-classifier # 物种注释</u>
-- <u>q2-feature-table # 按条件操作特征表</u>
-- q2-fragment-insertion # 系统发育树扩展，确定准确的进化地位 
+- # 按条件操作特征表</u>
+-  # 系统发育树扩展，确定准确的进化地位 
 -  q2-gneiss # 构建组合模型
 - q2-longitudinal # 成对样本和时间序列分析
 - <u>q2-metadata # 处理元数据</u>
