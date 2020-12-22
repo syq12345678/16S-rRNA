@@ -1,4 +1,4 @@
-![7488818-c335cddde336a0f1](https://i.loli.net/2020/12/19/OGaCbcU7KmfPki2.png)
+![https://github.com/syq12345678/16S-rRNA/blob/master/picture/1.16S-rRNA%E6%80%BB%E6%B5%81%E7%A8%8B%E5%9B%BE.png]()
 
 # 1.qiime2安装
 
@@ -69,7 +69,7 @@ conda env create -n qiime2-2020.11 --file qiime2-2020.11-py36-linux-conda.yml
 rm qiime2-2020.11-py36-linux-conda.yml
 ```
 
-注：从yml的软件列表文件中可以得知，QIIME 2依赖的软件多达336个。  下载安装所有依赖关系，时间主要由网速决定。再重试是可以继续末完成的任务，很快就成功了。如果添加有上述国内的镜像，半小时内可以搞定。
+​        注：从yml的软件列表文件中可以得知，QIIME 2依赖的软件多达336个。  下载安装所有依赖关系，时间主要由网速决定。再重试是可以继续末完成的任务，很快就成功了。如果添加有上述国内的镜像，半小时内可以搞定。
 
 ## 1.3 Conda操作指令
 
@@ -108,28 +108,29 @@ qiime --help
 
 ### 2.1.3Semantic types  
 
-​        qiime2每步分析中产生的qza文件，都有相应的语义类型，以便程序识别和分析。
+​         qiime2每步分析中产生的qza文件，都有相应的语义类型，以便程序识别和分析。
 
-​    常用的语义类型有：
+​          常用的语义类型有：
 
-- <u>FeatureTable[Frequency]: 频率，即Feature表(OTU表)，为每个样品中对应OTU出现频率的表格</u> 
-- FeatureTable[RelativeFrequency]: 相对频率，OTU表标准化为百分比的相度丰度   
-- FeatureTable[PresenceAbsence]: OTU有无表，显示样本中某个OTU有或无的表格   
-- FeatureTable[Composition]: 组成表，每个样品中OTU的频率   
-- <u>Phylogeny[Rooted]: 有根进化树</u>   
-- <u>Phylogeny[Unrooted]: 无根进化树</u>   
-- DistanceMatrix: 距离矩阵   
-- PCoAResults: 主成分分析结果   
-- SampleData[AlphaDiversity]: Alpha多样性结果，来自样本自身的分析 
--   <u>SampleData[SequencesWithQuality]: 带质量的序列，要求有质量值，要求序列名称与样品存在对应关系，如为按样品拆分后的数据格式</u>  
--  <u>SampleData[PairedEndSequencesWithQuality]: 成对的带质量序列，要求序列ID与样品编号存在对应关系；</u>   
-- FeatureData[Taxonomy]: 每一个OTU/Feature的分类学信息   
-- <u>FeatureData[Sequence]: 代表性序列</u>   
-- FeatureData[AlignedSequence]: 代表性序列进行多序列比对的结果  
-- FeatureData[PairedEndSequence]: 双端序列进行聚类或去噪后，分类好的OTU或Feature   
-- EMPSingleEndSequences: 采用地球微生物组计划标准实验方法产生的单端测序数据 
-- EMPPairedEndSequences: 采用地球微生物组计划标准实验方法产生的双端测序数据
-- <u>TaxonomicClassifier: 用于物种注释的分类软件</u>
+| FeatureTable[Frequency]                   | 频率，即Feature表(OTU表)，为每个样品中对应OTU出现频率的表格  |
+| :---------------------------------------- | :----------------------------------------------------------- |
+| FeatureTable[RelativeFrequency]           | 相对频率，OTU表标准化为百分比的相度丰度                      |
+| FeatureTable[PresenceAbsence]             | OTU有无表，显示样本中某个OTU有或无的表格                     |
+| FeatureTable[Composition]                 | 组成表，每个样品中OTU的频率                                  |
+| Phylogeny[Rooted]                         | 有根进化树                                                   |
+| Phylogeny[Unrooted]                       | 无根进化树                                                   |
+| DistanceMatrix                            | 距离矩阵                                                     |
+| PCoAResults                               | 主成分分析结果                                               |
+| SampleData[AlphaDiversity]                | Alpha多样性结果，来自样本自身的分析                          |
+| SampleData[SequencesWithQuality]          | 带质量的序列，要求有质量值，要求序列名称与样品存在对应关系，如为按样品拆分后的数据格式 |
+| SampleData[PairedEndSequencesWithQuality] | 成对的带质量序列，要求序列ID与样品编号有对应关系             |
+| FeatureData[Taxonomy]                     | 每一个OTU/Feature的分类学信息                                |
+| FeatureData[Sequence]                     | 代表性序列                                                   |
+| FeatureData[AlignedSequence]              | 代表性序列进行多序列比对的结果                               |
+| FeatureData[PairedEndSequence]            | 双端序列进行聚类或去噪后，分类好的OTU或Feature               |
+| EMPSingleEndSequences                     | 采用地球微生物组计划标准实验方法产生的单端测序数据           |
+| EMPPairedEndSequences                     | 采用地球微生物组计划标准实验方法产生的双端测序数据           |
+| TaxonomicClassifier                       | 用于物种注释的分类软件                                       |
 
 ### 2.1.4Plugins
 
