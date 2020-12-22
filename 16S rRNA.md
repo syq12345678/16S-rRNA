@@ -61,8 +61,8 @@ conda config --get cnannels
 mkdir -p qiime2 
 # 下载软件安装列表，官方源不容易下载 
 wget -c https://data.qiime2.org/distro/core/qiime2-2020.11-py36-linux-conda.yml 
-# 只有6k，但数据来源于github，有时无法下载，可以换成下列链接
-wget -c http://210.75.224.110/github/QIIME2ChineseManual/2020.11/qiime2-2020.11-py36-linux-conda.yml 
+# 只有10k，但数据来源于github，有时无法下载，可以换成下列链接
+wget -c https://github.com/syq12345678/16S-rRNA/blob/master/qiime2-2020.11-py36-linux-conda.yml
 # 创建虚拟环境并安装qiime2，防止影响其它己安装软件 （conda主要是在系统之外再构建一个虚拟环境，操作都在虚拟环境中进行。conda能管理不同的Python环境，不同的环境之间是互相隔离，互不影响的。）
 conda env create -n qiime2-2020.11 --file qiime2-2020.11-py36-linux-conda.yml 
 # 删除软件列表 
@@ -135,7 +135,7 @@ qiime --help
 ### 2.1.4Plugins
 
 | q2-alignment          | 生成和操作多序列比对                             |
-| --------------------- | ------------------------------------------------ |
+| :-------------------- | ------------------------------------------------ |
 | q2-composition        | 用于物种数据分析                                 |
 | q2-cutadapt           | 从序列数据中删除接头序列，引物和其他不需要的序列 |
 | q2-dada2              | 序列质量控制                                     |
@@ -144,36 +144,26 @@ qiime --help
 | q2-diversity          | 探索群落多样性                                   |
 | q2-emperor            | beta多样性3D可视化                               |
 | q2-feature-classifier | 物种注释                                         |
-| q2-feature-table      |                                                  |
-| q2-fragment-insertion |                                                  |
-|                       |                                                  |
-|                       |                                                  |
-|                       |                                                  |
-|                       |                                                  |
-|                       |                                                  |
-|                       |                                                  |
-|                       |                                                  |
+| q2-feature-table      | 按条件操作特征表                                 |
+| q2-fragment-insertion | 系统发育树扩展，确定准确的进化地位               |
+| q2-gneiss             | 构建组合模型                                     |
+| q2-longitudinal       | 成对样本和时间序列分析                           |
+| q2-metadata           | 处理元数据                                       |
+| q2-phylogeny          | 生成和操纵系统发育树                             |
+| q2-quality-control    | 用于特征和序列数据质量控制                       |
+| q2-quality-filter     | 基于PHRED的过滤和修剪                            |
+| q2-sample-classifier  | 样本元数据的机器学习预测                         |
+| q2-taxa               | 处理特征物种分类注释                             |
+| q2-types              | 定义微生物组分析的类型                           |
+| q2-vsearch            | 聚类和去冗余                                     |
 
-- # 按条件操作特征表</u>
--  # 系统发育树扩展，确定准确的进化地位 
--  q2-gneiss # 构建组合模型
-- q2-longitudinal # 成对样本和时间序列分析
-- <u>q2-metadata # 处理元数据</u>
-- <u>q2-phylogeny # 生成和操纵系统发育树</u>
-- q2-quality-control # 用于特征和序列数据质量控制
-- q2-quality-filter # 基于PHRED的过滤和修剪
-- q2-sample-classifier # 样本元数据的机器学习预测
-- <u>q2-taxa # 处理特征物种分类注释</u>
-- q2-types # 定义微生物组分析的类型
--  q2-vsearch # 聚类和去冗余
-
- 插件的功能见上方<u>qiime 插件 --help</u>弹出的信息,例如<u>qiime alignment --help</u>可以查看qiime alignment插件的功能和使用方法。下划线的插件是本次分析流程中将要用到的插件
+​       插件的功能见上方<u>qiime 插件 --help</u>弹出的信息,例如<u>qiime alignment --help</u>可以查看qiime alignment插件的功能和使用方法。
 
 # 3.qiime流程概述
 
 ## 3.1qiime插件工作流程概述
 
-![搜狗截图20年12月18日1650_8](https://i.loli.net/2020/12/19/8mIeGC2x7DSBYVo.png)
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/2.qiime%20plug-in%20workflow.png)
 
 -  每种类型的数据（如：对象Artifacts和可视化Visualizations）和功能action （如：方法methods、可视化工具visualizers和流程pipelines）用不同颜色的节点（即方框）代表。
 -  连接节点的边分为实线（代表需要的输入或输出文件）和虚线（代表可选的输入文件）。如果没明白什么意思，可以回头读一下”核心概念”。
@@ -184,13 +174,11 @@ qiime --help
 
 ## 3.2qiime数据分析流程概述
 
-
-
-![搜狗截图20年12月18日1730_12](https://i.loli.net/2020/12/19/n1e5h8uQN6gMlaT.png)
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/3.qiime%20data%20analysis%20workflow.png)
 
 黄色框代表操作方法，绿色框代表文件或数据
 
-![搜狗截图20年12月18日1727_11](https://i.loli.net/2020/12/19/vfLsSoqcyJuCkZA.png)
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/4.qiime%20data%20analysis%20workflow%20chinese.png)
 
 - 所有数据都必须导入为qiime2对象(扩展名为.qza的文件），以便由qimm2操作使用（除了包含元数据的manifest.tsv文件和metadata.tsv文件）。
 
@@ -205,7 +193,7 @@ qiime --help
 
 ### 3.2.1样本拆分（demultiplex）
 
-![搜狗截图20年12月18日1751_13](https://i.loli.net/2020/12/19/pqEdTZyz1unW4M9.png)
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/5.sample%20demux%20and%20denoise%20workflow.png)
 
 - 对大多数新用户来说，数据导入和原始序列样本拆分是最头痛的部分，一定要理解清楚
 
@@ -213,10 +201,8 @@ qiime --help
 
 - 这个流程图描述了qiime 2样本拆分的可能步骤，原始数据类型不同，步骤会有差异。通常情况下，测序公司返回的测序文件有raw.fastq和clean.fastq两种。<u>针对raw.fastq,我们需要使用q2-cutadapt去除primer、barcode等非生物序列和样本拆分方能进行下一步分析。而针对clean.fastq,我们只需要使用q2-demux进行样本拆分便可。</u>
 
+  ### 3.2.2去噪（deniosing)
   
-  
-  ### <u>3.2.2去噪（d</u>enoising)
-
 -  挑选OTU（OTU picking)在qiime1版本时曾经是一个常用的分析步骤，对序列进行去噪，取重复和聚类，即将相似的序列归一为单个序列，一般相似性的阈值定位97%。
 
 - 而qiime2版本中的dada2和deblur产生的“OTU”是通过对唯一序列进行分组而创建的，因此这些OTU相当于来自QIIME 1的100%相似度的OTU，通常称为扩增子序列变异体ASV。在qimme2中，dada2和deblur方法仅去噪去嵌合，不再按相似度聚类，结果与真实物种的序列更接近。这些OTU比qiime1默认的97%相似度聚类的OTU具有更高的分辨率，并且它们具有更高的质量，因为这些质量控制步骤比qiime 1中实现更好。因此，与qiime 1相比，可以对样本的多样性和分类组成进行更准确的估计。
@@ -235,7 +221,7 @@ qiime --help
   
   我们可以通过要查询的序列（即ASV）与具有已知分类信息的参考序列数据库进行比较来获得物种注释。仅仅找到最接近的比对结果并不一定是最好的，因为其他相同或接近的序列可能具有不同的分类注释。因此，我们使用基于比对、k-mer频率等物种分类器来确定最接近的分类学关联，并具有一定程度的置信度或一致区域（如果不能确定地预测物种名称，那么这可能不是同一物种）。
   
-  ![搜狗截图20年12月19日2134_3](https://i.loli.net/2020/12/19/bwHutE3q75ypvZn.png)
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/6.specis%20class%20workflow.png)
 
 - q2-feature-classifier包括三种不同的分类方法。classify-consensus-blast和classify-consensus-vsearch都是基于比对的方法，可以在N个最好的比对结果中找一致最高的用于分类。这些方法直接参考数据库FeatureData[Taxonomy]和FeatureData[Sequence]文件，不需要预先训练。  
 
@@ -249,7 +235,7 @@ qiime --help
 
   通常多样性分析依赖于个体特征之间的系统发育相似性。如果你正在进行系统发育标记基因测序（例如，16S rRNA基因），你可以多序列对齐(align)这些序列来评估每个特征之间的系统发育关系。然后这个系统发育树可以被其他下游分析使用，例如UniFrac距离分析。  用于对齐序列和产生系统发育的不同方法展示在下面的流程图中。
 
-  ![搜狗截图20年12月19日2146_4](https://i.loli.net/2020/12/19/hBvaNMlFZpzwuCV.png)
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/7.Sequence%20alignment%20and%20phylogeny%20building%20.png)
 
 ### 3.2.6多样性分析 Diversity analysis
 
@@ -261,7 +247,7 @@ qiime --help
 
 - 主坐标结果PCoAResults对象，包含每个距离/不同度量的主坐标排序结果。主坐标分析是一种降维技术，有助于在二维或三维空间中进行样本相似度或差异的可视化比较。
 
-  ![搜狗截图20年12月19日2152_5](https://i.loli.net/2020/12/19/ZK1r4G75PaIVd8x.png)
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/8.%20Diversity%20analysis%20workflow.png)
 
 # 4.分析流程
 
