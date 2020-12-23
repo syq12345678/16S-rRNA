@@ -37,7 +37,6 @@ conda update conda
 
 ```
 # 添加常用下载频道 
-conda config --add channels defaults 
 conda config --add channels conda-forge 
 conda config --add channels bioconda  
 # 添加清华镜像加速下载 
@@ -51,7 +50,7 @@ conda config --add channels ${site}/cloud/msys2/
 conda config --add channels ${site}/cloud/menpo/ 
 conda config --add channels ${site}/cloud/pytorch/  
 # 查看已经添加的channels  
-conda config --get cnannels
+conda config --show channels
 ```
 
 ## 1.2 Conda安装qiime2环境
@@ -69,15 +68,17 @@ conda env create -n qiime2-2020.11 --file qiime2-2020.11-py36-linux-conda.yml
 rm qiime2-2020.11-py36-linux-conda.yml
 ```
 
-​        注：从yml的软件列表文件中可以得知，QIIME 2依赖的软件多达336个。  下载安装所有依赖关系，时间主要由网速决定。再重试是可以继续末完成的任务，很快就成功了。如果添加有上述国内的镜像，半小时内可以搞定。
+​        注：从yml的软件列表文件中可以得知，QIIME 2依赖的软件多达336个。  下载安装所有依赖关系，时间主要由网速决定。再重试是可以继续未完成的任务，很快就成功了。如果添加有上述国内的镜像，半小时内可以搞定。
 
 ## 1.3 Conda操作指令
 
 ```
 # 查看当前存在的虚拟环境（可以看到除了conda自带的base环境，还有已经创建的qiime2-2020.11虚拟环境
 conda env list
-# 激活16SrRNA分析需要的qiime2环境（每次打开终端默认是base环境，所以使用qiime2环境进行操作时需要先激活qiime2环境）
+# 激活16SrRNA分析需要的qiime2环境
 conda activate qiime2-2020.11
+#退出qiime2-2020.11环境（在虚拟环境中操作完毕后，记得退出当前虚拟环境）
+conda deactivate qiime2-2020.11
 #检查qiime2环境是否安装成功
 qiime --help
 ```
@@ -86,7 +87,7 @@ qiime --help
 
 1.关闭工作环境 conda deactivate  不用QIIME 2时关闭环境，不然其它程序可能找不到或运行可能会出错
 
-2.删除虚拟环境`conda remove -n qiime2-2020.11
+2.如果想要删除虚拟环境，可输入命令`conda remove -n qiime2-2020.11
 
 # 2.qiime2背景介绍
 
@@ -188,7 +189,7 @@ qiime --help
 
 - ASV和OTU的概念非常重要，一定要理解清楚！！！
 
-  qiime1使用OTU作为feature,而qiime2使用ASV作为feature,为什么？
+  qiime1使用OTU作为feature,而qiime2使用ASV作为feature,为什么？？？
   
 
 ### 3.2.1样本拆分（demultiplex）
@@ -199,7 +200,7 @@ qiime --help
 
 - 大多数二代测序仪器有能力在单个通道（lane）／同一批次（run）中测序数百甚至数千个样本。我们通过多通道混用（multiplexing）的方法来提高检测速度，即多个样本混在一个文库中测序。既然这些来自不同样本的个读段（read）混合在一个“池”中，我们是如何知道每来个read来自哪个样本呢？这通常采用在每个序列的一端或双端附加唯一的条形码barcode（即索引index或标签tag）序列来实现区分read来源。检测这些条形码序列并将reads分类到所属的样本来源的过程就是“样本拆分”。这个过程非常类似于快递的分拣。  
 
-- 这个流程图描述了qiime 2样本拆分的可能步骤，原始数据类型不同，步骤会有差异。通常情况下，测序公司返回的测序文件有raw.fastq和clean.fastq两种。<u>针对raw.fastq,我们需要使用q2-cutadapt去除primer、barcode等非生物序列和样本拆分方能进行下一步分析。而针对clean.fastq,我们只需要使用q2-demux进行样本拆分便可。</u>
+- 这个流程图描述了qiime 2样本拆分的可能步骤，原始数据类型不同，步骤会有差异。
 
   ### 3.2.2去噪（deniosing)
   
@@ -207,11 +208,15 @@ qiime --help
 
 - 而qiime2版本中的dada2和deblur产生的“OTU”是通过对唯一序列进行分组而创建的，因此这些OTU相当于来自QIIME 1的100%相似度的OTU，通常称为扩增子序列变异体ASV。在qimme2中，dada2和deblur方法仅去噪去嵌合，不再按相似度聚类，结果与真实物种的序列更接近。这些OTU比qiime1默认的97%相似度聚类的OTU具有更高的分辨率，并且它们具有更高的质量，因为这些质量控制步骤比qiime 1中实现更好。因此，与qiime 1相比，可以对样本的多样性和分类组成进行更准确的估计。
 
--  见上图样本拆分和去噪工作流程的右边描述。  目前在qiime2中可用的去噪方法包括dada2和deblur。注意：从图中可以看出deblur分析之前必须进行数据质量过滤，而这个步骤对dada来说是不需要的。deblur和dada2都包含内部嵌合体检查方法和丰度过滤，因此按照这些方法不需要额外的过滤。 简而言之，这些方法滤除有噪声的序列，校正不确定序列中的错误（在dada2的分析中），去除嵌合序列，去除单体(singletons，出现频率仅有一次的序列)，合并去噪后的双端序列（在dada2的分析中），然后对这些序列进行去冗余。  
+- 见上图样本拆分和去噪工作流程的右边描述。  目前在qiime2中可用的去噪方法包括dada2和deblur。注意：从图中可以看出deblur分析之前必须进行数据质量过滤，而这个步骤对dada来说是不需要的。deblur和dada2都包含内部嵌合体检查方法和丰度过滤，因此按照这些方法不需要额外的过滤。 简而言之，这些方法滤除有噪声的序列，校正不确定序列中的错误（在dada2的分析中），去除嵌合序列，去除单体(singletons，出现频率仅有一次的序列)，合并去噪后的双端序列（在dada2的分析中），然后对这些序列进行去冗余。
+
+  从这篇文章的分析可以看出，dada2的去噪效果比deblur的去噪效果好。
 
 -  值得注意的是deblur去噪只针对单端数据，双端数据需要提前将序列合并后方可使用deblur去噪，而dada2适用于双端和单端数据
 
--  <u>综合上述分析，从去噪步骤简便角度看，优先选用dada2去噪</u>
+-  通常情况下，测序公司返回的测序文件有raw.fastq和clean.fastq两种。针对raw.fastq,如果使用deblur去噪，我们需要使用q2-cutadapt去除primer、barcode等非生物序列和使用q2-demux进行样本拆分方能进行下一步分析；如果使用dada2去噪，我们不需要使用q2-cutadapt去除非生物序列，直接使用q2-demux进行样本拆分便可，因为dada2具有修剪非生物序列的功能。
+
+-  <u>综合上述分析，从去噪步骤简便角度看，优先选用dada2去噪</u>!!!
 
   ### 3.2.3特征表 （feature table)
 
@@ -227,9 +232,9 @@ qiime --help
 
 - 基于机器学习的分类方法是通过classify-sklearn实现的。理论上讲， scikit-learn中的任何分类方法均可应用于物种分类。用于物种分类的软件或插件叫“分类器”，这些分类器因为采用了机器学习原理，在正式用于你的数据分类前必须训练这些分类器，以便让软件“学会”哪些特征可以最好地区分每个分类组。这个训练过程是在进行正式分类前额外需要的步骤。训练出来的分类器是具有“物种数据库和标记基因”特异性的。分类器一旦训练成功，只要你测序引物等测序条件没有改变，它就可以多次使用而不需要重新训练！
 
-- 训练分类器需要用到特定的物种分类数据库（比如Greengenes database）和你自己测序时的引物序列，训练步骤是：先用引物定位Greengenes中的参考序列，然后截取出这些参考序列（截取出的参考序列长度和你测序获得的序列长度类似），然后把这些序列与物种分类名称匹配，这样就获得了“分类器”。所以分类器具有“物种数据库和标记基因”特异性。
+- 训练分类器需要用到特定的物种分类数据库（比如Greengenes database）和你自己测序时的引物序列，训练步骤是：<u>先用引物定位Greengenes中的参考序列，然后截取出这些参考序列（截取出的参考序列长度和你测序获得的序列长度类似），然后把这些序列与物种分类名称匹配，这样就获得了“分类器”。所以分类器具有“物种数据库和标记基因”特异性。</u>
 
--  本例中将 使用classify-sklearning进行分类。  所有分类器生成一个FeatureData[Taxonomy]对象，其中包含每个查询序列的物种分类信息。  
+-  <u>本例中将 使用classify-sklearning进行分类。  所有分类器生成一个FeatureData[Taxonomy]对象，其中包含每个查询序列的物种分类信息。</u>  
 
   ### 3.2.5多序列比对和进化树构建 Sequence alignment and phylogeny building  
 
@@ -249,9 +254,21 @@ qiime --help
 
   ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/8.%20Diversity%20analysis%20workflow.png)
 
-# 4.分析流程
+# 4.参考数据下载
 
-## 4.1启动qiime2运行环境
+4.1参考数据
+
+- 这里的参考数据主要来自于文献Comparative Analysis of Soil Microbiome Profiles in the Companion Planting of White Clover and Orchard Grass Using 16S rRNA Gene Sequencing Data
+
+- 文献末尾有测序数据来源，打开链接可以看到数据在ncbi网站上
+
+  
+
+  
+
+# 5.数据分析
+
+## 5.1启动qiime2运行环境
 
 ```
 # 进入QIIME2 conda工作环境 
@@ -262,7 +279,7 @@ mkdir qiime2
 cd qiime2
 ```
 
-## 4.2数据导入 Importing data
+## 5.2数据导入 Importing data
 
 相关插件：qiime tools import
 
@@ -314,7 +331,7 @@ qiime tools import --show-importable-types
 
   使用https://view.qiime2.or查看qzv文件可视化结果
 
-## 4.3序列质量控制和特征表 Sequence quality control and feature table
+## 5.3序列质量控制和特征表 Sequence quality control and feature table
 
 ```
 time qiime dada2 denoise-paired \
@@ -327,7 +344,7 @@ time qiime dada2 denoise-paired \
 
 ```
 
-## 4.4特征表可视化
+## 5.4特征表可视化
 
 ```
 # 统计结果可视化
@@ -346,7 +363,7 @@ qiime feature-table tabulate-seqs \
 
 ```
 
-## 4.5构建多样性分析所需的进化树
+## 5.5构建多样性分析所需的进化树
 
 ```
 time qiime phylogeny align-to-tree-mafft-fasttree \
@@ -358,7 +375,7 @@ time qiime phylogeny align-to-tree-mafft-fasttree \
 
 ```
 
-## 4.6核心多样性
+## 5.6核心多样性
 
 ```
 time qiime diversity core-metrics-phylogenetic \
@@ -369,7 +386,7 @@ time qiime diversity core-metrics-phylogenetic \
 --output-dir core-metrics-results
 ```
 
-## 4.7aphla多样性
+## 5.7aphla多样性
 
 ```
 # aphla多样性
@@ -392,7 +409,7 @@ time qiime diversity alpha-rarefaction \
 
 ```
 
-## 4.8beta多样性
+## 5.8beta多样性
 
 ```
 time qiime diversity beta-group-significance \
@@ -416,7 +433,7 @@ time qiime diversity beta-group-significance \
 --p-pairwise
 ```
 
-## 4.9物种注释
+## 5.9物种注释
 
 ```
 # 物种注释
