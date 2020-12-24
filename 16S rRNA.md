@@ -254,21 +254,9 @@ qiime --help
 
   ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/8.%20Diversity%20analysis%20workflow.png)
 
-# 4.参考数据下载
+# 4.数据分析
 
-4.1参考数据
-
-- 这里的参考数据主要来自于文献Comparative Analysis of Soil Microbiome Profiles in the Companion Planting of White Clover and Orchard Grass Using 16S rRNA Gene Sequencing Data
-
-- 文献末尾有测序数据来源，打开链接可以看到数据在ncbi网站上
-
-  
-
-  
-
-# 5.数据分析
-
-## 5.1启动qiime2运行环境
+## 4.1启动qiime2运行环境
 
 ```
 # 进入QIIME2 conda工作环境 
@@ -278,6 +266,38 @@ conda activate qiime2-2020.11
 mkdir qiime2
 cd qiime2
 ```
+
+## 4.2数据下载
+
+### 4.2.1参考数据
+
+- 在qiime官方文档https://docs.qiime2.org/2020.11/中可以看到可供下载的16s数据库有greengene和Silva。并且两种数据库都有基于全长和基于可变区进行训练的分类器，通常选择基于全长进行训练,因为即使测的可变区对用全长训练也没有较大影响。
+
+- Greengene数据库（官网：http://greengenes.secondgenome.com/）是针对细菌和古菌16S rRNA基因的数据库。由于是人工整理，比较准确。很多科研工作者选择使用该数据库。分类层级采用常用的七级：界门纲目科属种，方便理解和阅读。同时，QIIME软件默认物种注释数据库也是它。
+
+- Silva数据库（官网：https://www.arb-silva.de/）是一个包含三域微生物（细菌，古菌，真核）rRNA基因序列的综合数据库。其数据库涵盖了原核和真核微生物的小亚基rRNA基因序列（简称SSU，即16S和18SrRNA）和大亚基rRNA基因序列（简称LSU，即23S和28SrRNA），更新频繁。由于是最大最全的数据库，其缺点是假阳性会更高。另一方面，它的物种注释采用的是14层级，且与常用的七级不同，不能转化和比较。
+
+- 通过阅读本例的参考文献Comparative Analysis of Soil Microbiome Profiles in the Companion Planting of White Clover and Orchard Grass Using 16S rRNA Gene Sequencing Data得知，本次测试的数据主要是相同条件下White clover单独种植，Orchard Grass单独种植和两者共同种植的三组不同的微生物组。因此选用greengene数据库。（注：如果涉及到测血液中的微生物选用silva数据库）
+
+  ```
+  # 下载物种注释数据库制作的greengene分类器
+  wget \   
+  -O "gg-13-8-99-nb-classifier.qza" \   
+  "https://data.qiime2.org/2020.2/common/gg-13-8-99-nb-classifier.qza"
+  ```
+
+### 4.2.2实验数据
+
+- 这里的实验数据主要来自于文献Comparative Analysis of Soil Microbiome Profiles in the Companion Planting of White Clover and Orchard Grass Using 16S rRNA Gene Sequencing Data
+- 文献末尾有实验测序数据来源链接，打开链接https://www.ncbi.nlm.nih.gov/sra/PRJNA625872可以看到数据在ncbi网站上并且共有27个sra数据 。按照图中的步骤，点击右上方的send to,在弹出来的窗口中选择file和runinfo,最后点击creat file，得到一个名为“SraRunInfo.csv”的文件。可以看到该文件第一列是测序数据的序列号，第十列是测序数据的下载地址。
+
+
+
+
+
+
+
+
 
 ## 5.2数据导入 Importing data
 
