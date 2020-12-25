@@ -135,6 +135,8 @@ qiime --help
 
 ### 2.1.4Plugins
 
+常用的插件有：
+
 | q2-alignment          | 生成和操作多序列比对                             |
 | :-------------------- | ------------------------------------------------ |
 | q2-composition        | 用于物种数据分析                                 |
@@ -269,15 +271,17 @@ cd qiime2
 
 ## 4.2数据下载
 
-### 4.2.1参考数据
+### 4.2.1参考数据下载
 
 - 在qiime官方文档https://docs.qiime2.org/2020.11/中可以看到可供下载的16s数据库有greengene和Silva。并且两种数据库都有基于全长和基于可变区进行训练的分类器，通常选择基于全长进行训练,因为即使测的可变区对用全长训练也没有较大影响。
 
-- Greengene数据库（官网：http://greengenes.secondgenome.com/）是针对细菌和古菌16S rRNA基因的数据库。由于是人工整理，比较准确。很多科研工作者选择使用该数据库。分类层级采用常用的七级：界门纲目科属种，方便理解和阅读。同时，QIIME软件默认物种注释数据库也是它。
+- Greengene数据库是针对细菌和古菌16S rRNA基因的数据库。由于是人工整理，比较准确。很多科研工作者选择使用该数据库。分类层级采用常用的七级：界门纲目科属种，方便理解和阅读。同时，QIIME软件默认物种注释数据库也是它。
 
-- Silva数据库（官网：https://www.arb-silva.de/）是一个包含三域微生物（细菌，古菌，真核）rRNA基因序列的综合数据库。其数据库涵盖了原核和真核微生物的小亚基rRNA基因序列（简称SSU，即16S和18SrRNA）和大亚基rRNA基因序列（简称LSU，即23S和28SrRNA），更新频繁。由于是最大最全的数据库，其缺点是假阳性会更高。另一方面，它的物种注释采用的是14层级，且与常用的七级不同，不能转化和比较。
+- Silva数据库是一个包含三域微生物（细菌，古菌，真核）rRNA基因序列的综合数据库。其数据库涵盖了原核和真核微生物的小亚基rRNA基因序列（简称SSU，即16S和18SrRNA）和大亚基rRNA基因序列（简称LSU，即23S和28SrRNA）。由于是最大最全的数据库，其缺点是假阳性会更高。另一方面，它的物种注释采用的是14层级，且与常用的七级不同，不能转化和比较。
 
 - 通过阅读本例的参考文献Comparative Analysis of Soil Microbiome Profiles in the Companion Planting of White Clover and Orchard Grass Using 16S rRNA Gene Sequencing Data得知，本次测试的数据主要是相同条件下White clover单独种植，Orchard Grass单独种植和两者共同种植的三组不同的微生物组。因此选用greengene数据库。（注：如果涉及到测血液中的微生物选用silva数据库）
+
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/11.data%20achieve.png)
 
   ```
   # 下载物种注释数据库制作的greengene分类器
@@ -286,18 +290,60 @@ cd qiime2
   "https://data.qiime2.org/2020.2/common/gg-13-8-99-nb-classifier.qza"
   ```
 
-### 4.2.2实验数据
+### 4.2.2实验数据来源
 
 - 这里的实验数据主要来自于文献Comparative Analysis of Soil Microbiome Profiles in the Companion Planting of White Clover and Orchard Grass Using 16S rRNA Gene Sequencing Data
-- 文献末尾有实验测序数据来源链接，打开链接https://www.ncbi.nlm.nih.gov/sra/PRJNA625872可以看到数据在ncbi网站上并且共有27个sra数据 。按照图中的步骤，点击右上方的send to,在弹出来的窗口中选择file和runinfo,最后点击creat file，得到一个名为“SraRunInfo.csv”的文件。可以看到该文件第一列是测序数据的序列号，第十列是测序数据的下载地址。
 
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/9.data%20achieve.png)
 
+- 文献末尾有实验测序数据来源链接，打开链接https://www.ncbi.nlm.nih.gov/sra/PRJNA625872可以看到数据在ncbi网站上并且共有27个sra数据 。按照图中的步骤，点击右上方的send to,在弹出来的窗口中选择file和accession list,最后点击creat file，得到一个名为“SraAccList.txt”的文件。打开文件是一列sra数据编号
 
+  
 
+- 实验数据主要来自NCBI数据库，NCBI数据库提供的sra数据下载及格式转换的软件是sratoolkit
 
+- 本地安装sratoolkit
 
+  ```
+  # 下载安装包
+  wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.10.0/sratoolkit.2.10.0-ubuntu64.tar.gz
+  # 解压缩
+  tar -xzvf sratoolkit.2.10.0-ubuntu64.tar.gz
+  # 文件夹重命名方便后续操作
+  mv sratoolkit.2.10.0-ubuntu64.tar.gz sratoolkit
+  # 导入临时环境变量
+  cd sratoolkit.2.9.6/bin
+  export PATH="$(pwd):$PATH"
+  # 检查软件是否安装成功
+  prefetch --help
+  ```
 
+- 使用brew安装sratoolkit
 
+  ```
+  brew install sra toolkit
+  ```
+
+- 采用SRAtoolkit工具包中的prefetch工具，可以下载NCBI数据库提供的sra数据，输入命令prefetch --help可以查看其用法用法，运行命令如下
+
+  ```
+  nohup prefetch --option-file SRR_Acc_List.txt &
+  ```
+
+  注：nohup 命令可以使命令永久的执行下去，和终端没有关系，退出终端也不会影响程序的运行； & 是后台运行的意思，但当用户退出的时候，命令自动也跟着退出。 那么，把两个结合起来nohup 命令 &这样就能使命令永久的在后台执行。
+
+- 下载完成之后并不是本例所需要的.fastq格式的文件，而是.sra文件，所以需要进行格式转换，可以使用SRAtoolkit工具包里面的fastq-dump工具来进行格式转化。输入命令fastq-dump --help查看其用法。在转换文件格式前要清楚sra文件是单端测序数据还是双端测序数据，本例得到的每个sra数据为430bp左右，可知是单端测序数据。因此使用fastq-dump命令。
+
+  ```
+  # parallel是进行多线程运行的工具，并行运行可以提升效率，节省时间
+  brew install parallel
+  # 将sra文件转化为fastq文件
+  parallel -j 4 "
+      fastq-dump  {1}
+  " ::: $(ls *.sra)
+  # 删除sra文件
+  rm *.sra
+  ```
 
 ## 5.2数据导入 Importing data
 
@@ -319,24 +365,22 @@ qiime tools import --show-importable-types
 - Keemei是一个用于验证示例元数据的Google Sheets插件。在开始任何分析之前，样本元数据的验证非常重要。尝试按照Keemei网站上的说明安装Keemei并验证你的manifest.tsv文件
 
   ```
-  #获取fastq文件
-  
   #获取manifest.tsv
   
   #查看清单文件
   head -n3 manifest.tsv
   ```
-
+  
   清单文件内容示例
 
   ```
-  
-  ```
 
+  ```
+  
   注：使用此清单格式时，样本名称只能出现在一行中，并且每列只能映射到每列一个文件名（单端为一列，双端为两列）。 每个样本的绝对文件路径必须是绝对路径，它指定文件的“完整”位置。 在这里使用$ PWD变量，这意味着输入文件manifest.tsv和fastq以及输出文件都必须在当前的工作目录中。
 
   ```
-  # 使用清单文件导入数据
+# 使用清单文件导入数据
   qiime tools import \
    --type 'SampleData[PairedEndSequencesWithQuality]' \
    --input-path manifest.tsv \
@@ -348,7 +392,7 @@ qiime tools import --show-importable-types
     --o-visualization paired-end-demux.qzv
   
   ```
-
+  
   使用https://view.qiime2.or查看qzv文件可视化结果
 
 ## 5.3序列质量控制和特征表 Sequence quality control and feature table
