@@ -5,13 +5,13 @@
 ## 1.1 Minicoda软件包管理器安装
 
 ```
-# 下载miniconda软件管理器(https://conda.io/miniconda.html)），将用于安装QIIME2及依赖关系 
+# 下载miniconda软件管理器，将用于安装QIIME2及依赖关系 
 wget -c https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 # 运行安装程序
 bash Miniconda3-latest-Linux-x86_64.sh
-# 测试是否安装成功,有版本信息即为安装成功
+# 测试conda是否安装成功,出现版本信息即安装成功
 conda --version
-# 删除安装程序，下次你会下载新版
+# 删除安装程序
 rm Miniconda3-latest-Linux-x86_64.sh
 # 如果已经安装过，则升级conda为最新版本
 conda update conda
@@ -19,19 +19,17 @@ conda update conda
 
 注：安装过程中按提示操作： 
 
-1.Please, press ENTER to continue，按回车键查看许可协议，再按空格键翻页完成全文阅读；  
+1.一直按回车键查看许可协议
 
-2.Do you accept the license terms? [yes|no]，是否同意许可协议，输入yes同意许可；  提示默认安装目录为家目录下~/miniconda3目录，可手动输入一个指定的安装目录，推荐按回车确认使用此目录；  
+2.输入yes同意许可协议
 
- 3.Do you wish the installer to initialize Miniconda3 by running conda init? [yes|no]，提示是否默认启动conda环境，这里输入yes并回车。
+3.默认安装目录为家目录下~/miniconda3目录，也可以手动输入一个指定的安装目录，推荐按回车使用默认目录
 
 4.Miniconda3安装成功,默认运行base包，打开终端命令行最前面会出现（base)
 
-5.如果下面运行安装没有权限，请运行 export PATH="~/miniconda3/bin:$PATH" 手动添加新安装的miniconda3至环境变量，或尝试source ~/.bashrc更新环境变量  
+5.如果运行安装没有权限，可运行 export PATH="~/miniconda3/bin:$PATH" 手动添加新安装的miniconda3至环境变量，或者source ~/.bashrc更新环境变量  
 
-6.安装结束时提示是否添加环境变量~/.bashrc，一般选no。因为选yes可直接将conda环境加入环境变量的最高优先级，使用方便，但conda里的环境如 Python变为默认环境，破坏之前依赖Python的软件环境。而选no不添加保证之前软件安装环境不变，但运行conda及相关程序时，需要运行一条命令临时~/miniconda3/bin目录至环境变量，或使用绝对路径执行相关程序 。以后想要使用conda，需要运行如下命令将conda临时添加环境变量  export PATH="~/miniconda3/bin:$PATH"  但如果是新环境，或要经常使用QIIME 2，推荐使用默认的添加环境变量更方便。之前同意添加环境变量，完成后关闭当前终端，新打开一个终端继续操作才能生效。如果系统已经有很多程序，添加conda至环境变量可能引起之前软件的依赖关系被破坏。 
-
-7.(可选)添加常用软件下载频道，以及国内镜像加速下载。 升级conda为最新版：新版的bug最少，碰到问题的机率也小。
+6.(可选)添加常用软件下载频道，以及国内镜像加速下载。 
 
 ```
 # 添加常用下载频道 
@@ -55,7 +53,7 @@ conda config --show channels
 
 ```
 # 新建一个安装qiime2的文件夹
-mkdir -p qiime2 
+mkdir -p qiime2-2020.11
 # 下载软件安装列表
 wget -c https://data.qiime2.org/distro/core/qiime2-2020.11-py36-linux-conda.yml 
 # 创建虚拟环境并安装qiime2，防止影响其它己安装软件 （conda主要是在系统之外再构建一个虚拟环境，操作都在虚拟环境中进行。conda能管理不同的Python环境，不同的环境之间是互相隔离，互不影响的。）
@@ -79,7 +77,7 @@ qiime --help
 
 注：
 
-1.关闭工作环境命令 conda deactivate，  不用QIIME 2时关闭环境，不然其它程序可能找不到或运行可能会出错
+1.关闭工作环境命令 conda deactivate，  不用qiime 2时要关闭qiime2环境。
 
 2.删除虚拟环境，可输入命令conda remove -n qiime2-2020.11
 
@@ -89,14 +87,13 @@ qiime --help
 
 ### 2.1.1Data files: qiime2 artifacts
 
-- qiiime2为了使分析流程标准化，分析过程可重复，制定了<u>统一的分析过程文件格式.qza</u>；qza文件类似于一个封闭的文件格式(本质上是个标准格式的压缩包)，里面包括原始数据、分析的过程和结果；这样保证了文件格式的标准，同时可以追溯每一步的分析，以及图表的绘制参数。这一方案为实现可重复分析提供了基础。比如文章投稿，同时提供分析过程的文件，方便同行学习、重复结果分析以及结果的再利用。  
+- qiiime2为了使分析流程标准化，分析过程可重复，制定了<u>统一的分析过程文件格式.qza</u>；qza文件本质上是个标准格式的压缩包，里面包括原始数据、分析的过程和结果；这样保证了文件格式的标准，同时可以追溯每一步的分析，以及图表的绘制参数。
 - 由qiime2产生的数据类型，叫<u>qiime 2对象(artifacts)</u>，通常包括<u>数据和元数据/样本信息(metadata)</u>。元数据描述数据，包括类型、格式和它如何产生。典型的扩展名为.qza。  qiime2采用对象代替原始数据文件(如fasta文件)，因此分析者必须导入数据来创建qiime2对象。
 - 使用artifact(对象)一词可能产生混淆，因为其通常的意思为实验偏差的来源。这里的artifact的意思是指被多步处理的对象。
 
 ### 2.1.2Data files: visualizations
 
 -  qiime2生成的<u>图表结果对象或文件类型，以.qzv为扩展名，末尾的v代表visual</u>；它同qza文件类似，包括分析方法和结果，方便追溯图表是如何产生的；唯一与qza不同的，它是分析的终点，即结果的呈现，不会在流程中继续分析。可视化的结果包括统计结果表格、交互式图像、静态图片及其它组合的可视化呈现。这类文件可以使用 qiime tools view命令查看。  
-- 不安装qiime2程序也可在线 https://view.qiime2.org/ 导入文件并显示结果图表，同时可查看数据分析过程。
 
 ### 2.1.3Semantic types  
 
@@ -176,11 +173,11 @@ qiime --help
 
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/4.qiime%20data%20analysis%20workflow%20chinese.png)
 
-- 所有数据都必须导入为qiime2对象(扩展名为.qza的文件），以便由qimm2操作使用（除了包含元数据的manifest.tsv文件和metadata.tsv文件）。
+- 所有数据都必须导入为qiime2对象(扩展名为.qza的文件），以便由qiime2操作使用（除了包含元数据的manifest.tsv文件和metadata.tsv文件）。
 
-- 所有扩增子测序的分析的起点是原始序列数据。原始数据多数为fastq格式，其包含有DNA序列数据和每个碱基的质量值。  我们必须进行混合样本的样本拆分（demultiplex），以便确定每条序列来自于哪个样本。  <u>然后进行序列去噪（denoised）以获得扩增子序列变异体（amplicon sequence variants, ASVs）</u>，这样做目的有二个：⑴降低测序错误；⑵序列去冗余。特征表和代表性序列是去噪获得的关键结果，是下游分析的核心数据。一个特征表简单说就是一张Excel表，行名为ASV名称，列名为样本名。
+- 所有扩增子测序的分析的起点是原始序列数据。原始数据多数为fastq格式，其包含有DNA序列数据和每个碱基的质量值。  j然后进行混合样本的样本拆分（demultiplex），以便确定每条序列来自于哪个样本。  再进行序列去噪（denoised）以获得扩增子序列变异体（amplicon sequence variants, ASVs），这样做目的有二个：⑴降低测序错误；⑵序列去冗余。
 
-- <u>特征（feature）是对ASV的称呼。</u>  我们可以基于特征表做很多事，常用分析包括：  序列的物种分类。比如，这里面有什么物种？  Alpha(α)和Beta(β)Z样性分析，即分别描述样本内或样本间的多样性。比如我们可以了解样本间有多少物种是一样的，即相似性如何？  许多的多样性分析依赖于个体特征的进化相似性。如果你测序的是系统发育的标记基因，如16S rRNA基因，你可以采用多序列比对方式评估特征间的系统发育关系。  不同实验组间特征的差异丰度分析，确定哪些ASVs显著的多或少。  
+- <u>特征（feature）是对ASV的称呼。</u>  
 
 - ASV和OTU的概念非常重要，一定要理解清楚！！！
 
@@ -191,23 +188,21 @@ qiime --help
 
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/5.sample%20demux%20and%20denoise%20workflow.png)
 
-- 对大多数新用户来说，数据导入和原始序列样本拆分是最头痛的部分，一定要理解清楚
+- 数据导入和原始序列样本拆分是最头痛的部分，一定要理解清楚
 
-- 大多数二代测序仪器有能力在单个通道（lane）／同一批次（run）中测序数百甚至数千个样本。我们通过多通道混用（multiplexing）的方法来提高检测速度，即多个样本混在一个文库中测序。既然这些来自不同样本的个读段（read）混合在一个“池”中，我们是如何知道每来个read来自哪个样本呢？这通常采用在每个序列的一端或双端附加唯一的条形码barcode（即索引index或标签tag）序列来实现区分read来源。检测这些条形码序列并将reads分类到所属的样本来源的过程就是“样本拆分”。这个过程非常类似于快递的分拣。  
-
-- 这个流程图描述了qiime 2样本拆分的可能步骤，原始数据类型不同，步骤会有差异。
+- 大多数二代测序仪器有能力在单个通道（lane）／同一批次（run）中测序数百甚至数千个样本。多通道混用（multiplexing）的方法可以提高检测速度，即多个样本混在一个文库中测序。既然这些来自不同样本的个读段（read）混合在一个“池”中， 那如何知道每来个read来自哪个样本呢？因此通常采用在每个序列的一端或双端附加唯一的条形码barcode（即索引index或标签tag）序列来实现区分read来源。检测这些条形码序列并将reads分类到所属的样本来源的过程就是“样本拆分”。这个过程非常类似于快递的分拣。  
 
   ### 3.2.2去噪（deniosing)
-  
+
 -  挑选OTU（OTU picking)在qiime1版本时曾经是一个常用的分析步骤，对序列进行去噪，取重复和聚类，即将相似的序列归一为单个序列，一般相似性的阈值定位97%。
 
-- 而qiime2版本中的dada2和deblur产生的“OTU”是通过对唯一序列进行分组而创建的，因此这些OTU相当于来自QIIME 1的100%相似度的OTU，通常称为扩增子序列变异体ASV。在qimme2中，dada2和deblur方法仅去噪去嵌合，不再按相似度聚类，结果与真实物种的序列更接近。这些OTU比qiime1默认的97%相似度聚类的OTU具有更高的分辨率，并且它们具有更高的质量，因为这些质量控制步骤比qiime 1中实现更好。因此，与qiime 1相比，可以对样本的多样性和分类组成进行更准确的估计。
+- 而qiime2版本中的dada2和deblur产生的“OTU”是通过对唯一序列进行分组而创建的，因此这些OTU相当于来自QIIME 1的100%相似度的OTU，通常称为扩增子序列变异体ASV。在qimme2中，dada2和deblur方法仅去噪去嵌合，不再按相似度聚类，结果与真实物种的序列更接近。
 
 - 见上图样本拆分和去噪工作流程的右边描述。  目前在qiime2中可用的去噪方法包括dada2和deblur。注意：从图中可以看出deblur分析之前必须进行数据质量过滤，而这个步骤对dada来说是不需要的。deblur和dada2都包含内部嵌合体检查方法和丰度过滤，因此按照这些方法不需要额外的过滤。 简而言之，这些方法滤除有噪声的序列，校正不确定序列中的错误（在dada2的分析中），去除嵌合序列，去除单体(singletons，出现频率仅有一次的序列)，合并去噪后的双端序列（在dada2的分析中），然后对这些序列进行去冗余。
 
-  从这篇文章的分析可以看出，dada2的去噪效果比deblur的去噪效果好。
+  因此，dada2的去噪效果比deblur的去噪效果好。
 
--  值得注意的是deblur去噪只针对单端数据，双端数据需要提前将序列合并后方可使用deblur去噪，而dada2适用于双端和单端数据
+-  deblur去噪只针对单端数据，双端数据需要提前将序列合并后方可使用deblur去噪，而dada2适用于双端和单端数据
 
 -  通常情况下，测序公司返回的测序文件有raw.fastq和clean.fastq两种。针对raw.fastq,如果使用deblur去噪，我们需要使用q2-cutadapt去除primer、barcode等非生物序列和使用q2-demux进行样本拆分方能进行下一步分析；如果使用dada2去噪，我们不需要使用q2-cutadapt去除非生物序列，直接使用q2-demux进行样本拆分便可，因为dada2具有修剪非生物序列的功能。
 
@@ -219,13 +214,15 @@ qiime --help
 
   ### 3.2.4物种分类和分类学分析 (taxonomy classification and taxonomic analyses)
 
-- 我们可以通过要查询的序列（即ASV）与具有已知分类信息的参考序列数据库进行比较来获得物种注释。仅仅找到最接近的比对结果并不一定是最好的，因为其他相同或接近的序列可能具有不同的分类注释。因此，我们使用基于比对、k-mer频率等物种分类器来确定最接近的分类学关联，并具有一定程度的置信度或一致区域（如果不能确定地预测物种名称，那么这可能不是同一物种）。
+- 通过要查询的序列（即ASV）与具有已知分类信息的参考序列数据库进行比较来获得物种注释。仅仅找到最接近的比对结果并不一定是最好的，因为其他相同或接近的序列可能具有不同的分类注释。因此，使用基于比对、k-mer频率等物种分类器来确定最接近的分类学关联，并具有一定程度的置信度或一致区域（如果不能确定地预测物种名称，那么这可能不是同一物种）。
 
   ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/6.specis%20class%20workflow.png)
 
-- q2-feature-classifier包括三种不同的分类方法。classify-consensus-blast和classify-consensus-vsearch都是基于比对的方法，可以在N个最好的比对结果中找一致最高的用于分类。这些方法直接参考数据库FeatureData[Taxonomy]和FeatureData[Sequence]文件，不需要预先训练。  
+- q2-feature-classifier包括三种不同的分类方法。
 
-- 基于机器学习的分类方法是通过classify-sklearn实现的。理论上讲， scikit-learn中的任何分类方法均可应用于物种分类。用于物种分类的软件或插件叫“分类器”，这些分类器因为采用了机器学习原理，在正式用于你的数据分类前必须训练这些分类器，以便让软件“学会”哪些特征可以最好地区分每个分类组。这个训练过程是在进行正式分类前额外需要的步骤。训练出来的分类器是具有“物种数据库和标记基因”特异性的。分类器一旦训练成功，只要你测序引物等测序条件没有改变，它就可以多次使用而不需要重新训练！
+- classify-consensus-blast和classify-consensus-vsearch都是基于比对的方法，可以在N个最好的比对结果中找一致最高的用于分类。这些方法直接参考数据库FeatureData[Taxonomy]和FeatureData[Sequence]文件，不需要预先训练。  
+
+- 基于机器学习的分类方法是通过classify-sklearn实现的。理论上讲， scikit-learn中的任何分类方法均可应用于物种分类。用于物种分类的软件或插件叫“分类器”，
 
 - 训练分类器需要用到特定的物种分类数据库（比如Greengenes database）和你自己测序时的引物序列，训练步骤是：<u>先用引物定位Greengenes中的参考序列，然后截取出这些参考序列（截取出的参考序列长度和你测序获得的序列长度类似），然后把这些序列与物种分类名称匹配，这样就获得了“分类器”。所以分类器具有“物种数据库和标记基因”特异性。</u>
 
@@ -233,13 +230,13 @@ qiime --help
 
   ### 3.2.5多序列比对和进化树构建 Sequence alignment and phylogeny building  
 
-- 通常多样性分析依赖于个体特征之间的系统发育相似性。如果你正在进行系统发育标记基因测序（例如，16S rRNA基因），你可以多序列对齐(align)这些序列来评估每个特征之间的系统发育关系。然后这个系统发育树可以被其他下游分析使用，例如UniFrac距离分析。  用于对齐序列和产生系统发育的不同方法展示在下面的流程图中。
+- 通常多样性分析依赖于个体特征之间的系统发育相似性。如果正在进行系统发育标记基因测序（例如，16S rRNA基因），可以多序列对齐(align)这些序列来评估每个特征之间的系统发育关系。然后这个系统发育树可以被其他下游分析使用，例如UniFrac距离分析。  用于对齐序列和产生系统发育的不同方法展示在下面的流程图中。
 
   ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/7.Sequence%20alignment%20and%20phylogeny%20building%20.png)
 
 ###     3.2.6多样性分析 Diversity analysis
 
-- 样本中有多少不同的物种/OTUs/ASVs？  每个样本存在多少系统发育多样性？  单个样本和样本组有多相似/不同？  哪些因素与微生物组成和多样性的差异相关呢？ 这些问题可以通过α和β多样性分析来回答。Alpha多样性测量单个样本中的多样性水平。β多样性测量样本之间的多样性或差异程度。然后我们可以使用统计检验来说明样本组之间的α多样性是否不同（例如，指出哪些组具有更多/更少的物种丰富度）以及组之间的β多样性是否显著差异（例如，确定一个组中的样本比另一个组中的样本更相似），通过这些结果来证明这些组中的成员正在形成一个特定的微生物组成。  
+- 样本中有多少不同的物种/OTUs/ASVs？  每个样本存在多少系统发育多样性？  单个样本和样本组有多相似/不同？  哪些因素与微生物组成和多样性的差异相关呢？ 这些问题可以通过α和β多样性分析来回答。Alpha多样性测量单个样本中的多样性水平。β多样性测量样本之间的多样性或差异程度。然后可以使用统计检验来说明样本组之间的α多样性是否不同（例如，指出哪些组具有更多/更少的物种丰富度）以及组之间的β多样性是否显著差异（例如，确定一个组中的样本比另一个组中的样本更相似），通过这些结果来证明这些组中的成员正在形成一个特定的微生物组成。  
 
 - 样本数据-α多样性SampleData[AlphaDiversity]对象，其中包含特征表中每个样本的α多样性估计。这是α多样性分析的核心对象。  
 
@@ -364,7 +361,7 @@ qiime tools import --show-importable-types
 
   4.表头每列名称必须唯一，不能包括标点符号; 
 
-  5.建议manifest.tsv文件只使用字母和数字，任何符号在后续分析都可能会有问题 。文件至少包括除表头外的一行数据； 第一列为样品名，用于标识每个样品，名字必须唯一。
+  5.建议manifest.tsv文件只使用字母和数字，任何符号在后续分析都可能会有问题 。
 
 - 已知本例使用的是单端测序数据且当前工作目录下必须有fastq数据文件和导入fastq数据的manifes.tsv
 
@@ -402,7 +399,8 @@ qiime tools import --show-importable-types
 
 ##  4.4序列质量控制和特征表 Sequence quality control and feature table
 
-- 由前面分析可知，这里使用dada2进行质量控制并且本例数据为单端测序的数据，因此使用命令qiime dada2 denoise-single。<u>qiime dada2 denoise-single方法要求设置--p-trunc-len参数，这可以控制序列的长度，并应根据质量得分的下降进行选择。在本例中，从上图可以看到质量得分在测序运行中相对均匀分布并且大部分序列在416bp以上，因此选择416bp。</u>
+- 由前面分析可知，这里使用dada2进行质量控制并且本例数据为单端测序的数据，因此使用命令qiime dada2 denoise-single。在本例中，从上图可以看到质量得分在测序运行中相对均匀分布并且大部分序列在416bp以上，因此选择416bp。如果质量得分在左侧有大幅度下降，那么使用--p-trim-left命令时
+- 应裁掉质量得分成下降趋势的一部分。
 
 ```
 #序列质控
@@ -413,7 +411,7 @@ qiime dada2 denoise-single \
 --o-table table.qza \
 --o-representative-sequences rep-seqs.qza \
 --o-denoising-stats stats.qza
-#统计结果可视化
+#去噪过程统计结果可视化
 time qiime metadata tabulate \
 --m-input-file stats.qza \
 --o-visualization stats.qzv
@@ -433,6 +431,12 @@ qiime feature-table tabulate-seqs \
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/16.png)
 
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/17.png)
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/18.png)
+
+- stas.qzv文件可视化可以看到包含样品元数据sampl-id和去噪过程中有多少条序列被过滤等信息。
+- stas.qzv可视化后下载的metadata.tsv用于table.qzv文件的可视化，并且从table.qzv中可以看到有去噪得到的ASV即feature-id以及每个ASV被测到的次数
+- rep-seqs.qzv可视化后可以看到ASV对应的序列信息并且点击这些序列可以在NCBI数据库中找到。
 
 ## 4.5物种注释
 
@@ -456,6 +460,10 @@ qiime taxa barplot \
  --o-visualization taxa-bar-plots.qzv
 ```
 
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/18.png)
-
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/19.png)
+
+- 物种注释后得到的taxonomy.qzv文件可视化后可以看到每个ASV(feature-id)对应的物种注释信息，分类方式主要为kingdom(界)、phylum(门)、class(纲)、order（目）、family(科)、genus(属)、species（种）
+
+
+
+本文主要引用自中科院刘永鑫博士的博客，非原创。
