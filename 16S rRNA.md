@@ -399,8 +399,7 @@ qiime tools import --show-importable-types
 
 ##  4.4序列质量控制和特征表 Sequence quality control and feature table
 
-- 由前面分析可知，这里使用dada2进行质量控制并且本例数据为单端测序的数据，因此使用命令qiime dada2 denoise-single。在本例中，从上图可以看到质量得分在测序运行中相对均匀分布并且大部分序列在416bp以上，因此选择416bp。如果质量得分在左侧有大幅度下降，那么使用--p-trim-left命令时
-- 应裁掉质量得分成下降趋势的一部分。
+- 由前面分析可知，这里使用dada2进行质量控制并且本例数据为单端测序的数据，因此使用命令qiime dada2 denoise-single。在本例中，从上图可以看到质量得分在测序运行中相对均匀分布并且大部分序列在416bp以上，因此选择416bp。如果质量得分在左侧有大幅度下降，那么使用--p-trim-left命令时应裁掉质量得分成下降趋势的一部分。
 
 ```
 #序列质控
@@ -435,8 +434,8 @@ qiime feature-table tabulate-seqs \
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/18.png)
 
 - stas.qzv文件可视化可以看到包含样品元数据sampl-id和去噪过程中有多少条序列被过滤等信息。
-- stas.qzv可视化后下载的metadata.tsv用于table.qzv文件的可视化，并且从table.qzv中可以看到有去噪得到的ASV即feature-id以及每个ASV被测到的次数
-- rep-seqs.qzv可视化后可以看到ASV对应的序列信息并且点击这些序列可以在NCBI数据库中找到。
+- stas.qzv文件可视化后下载的metadata.tsv用于table.qzv文件的生成，并且从table.qzv文件可视化中可以看到去噪得到的ASV即feature-id以及每个ASV被测到的次数
+- rep-seqs.qzv文件可视化后可以看到ASV对应的序列信息并且点击这些序列可以在NCBI数据库中找到。
 
 ## 4.5物种注释
 
