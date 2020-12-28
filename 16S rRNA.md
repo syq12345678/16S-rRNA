@@ -21,11 +21,9 @@ conda update conda
 
 1.Please, press ENTER to continue，按回车键查看许可协议，再按空格键翻页完成全文阅读；  
 
-2.Do you accept the license terms? [yes|no]，是否同意许可协议，输入yes同意许可；  
+2.Do you accept the license terms? [yes|no]，是否同意许可协议，输入yes同意许可；  提示默认安装目录为家目录下~/miniconda3目录，可手动输入一个指定的安装目录，推荐按回车确认使用此目录；  
 
-提示默认安装目录为家目录下~/miniconda3目录，可手动输入一个指定的安装目录，推荐按回车确认使用此目录；  
-
-3.Do you wish the installer to initialize Miniconda3 by running conda init? [yes|no]，提示是否默认启动conda环境，这里输入yes并回车。
+ 3.Do you wish the installer to initialize Miniconda3 by running conda init? [yes|no]，提示是否默认启动conda环境，这里输入yes并回车。
 
 4.Miniconda3安装成功,默认运行base包，打开终端命令行最前面会出现（base)
 
@@ -58,17 +56,13 @@ conda config --show channels
 ```
 # 新建一个安装qiime2的文件夹
 mkdir -p qiime2 
-# 下载软件安装列表，官方源不容易下载 
+# 下载软件安装列表
 wget -c https://data.qiime2.org/distro/core/qiime2-2020.11-py36-linux-conda.yml 
-# 只有10k，但数据来源于github，有时无法下载，可以换成下列链接
-wget -c https://github.com/syq12345678/16S-rRNA/blob/master/qiime2-2020.11-py36-linux-conda.yml
 # 创建虚拟环境并安装qiime2，防止影响其它己安装软件 （conda主要是在系统之外再构建一个虚拟环境，操作都在虚拟环境中进行。conda能管理不同的Python环境，不同的环境之间是互相隔离，互不影响的。）
 conda env create -n qiime2-2020.11 --file qiime2-2020.11-py36-linux-conda.yml 
 # 删除软件列表 
 rm qiime2-2020.11-py36-linux-conda.yml
 ```
-
-​        注：从yml的软件列表文件中可以得知，QIIME 2依赖的软件多达336个。  下载安装所有依赖关系，时间主要由网速决定。再重试是可以继续未完成的任务，很快就成功了。如果添加有上述国内的镜像，半小时内可以搞定。
 
 ## 1.3 Conda操作指令
 
@@ -85,9 +79,9 @@ qiime --help
 
 注：
 
-1.关闭工作环境 conda deactivate  不用QIIME 2时关闭环境，不然其它程序可能找不到或运行可能会出错
+1.关闭工作环境命令 conda deactivate，  不用QIIME 2时关闭环境，不然其它程序可能找不到或运行可能会出错
 
-2.如果想要删除虚拟环境，可输入命令`conda remove -n qiime2-2020.11
+2.删除虚拟环境，可输入命令conda remove -n qiime2-2020.11
 
 # 2.qiime2背景介绍
 
@@ -95,23 +89,19 @@ qiime --help
 
 ### 2.1.1Data files: qiime2 artifacts
 
-​       qiiime2为了使分析流程标准化，分析过程可重复，制定了<u>统一的分析过程文件格式.qza</u>；qza文件类似于一个封闭的文件格式(本质上是个标准格式的压缩包)，里面包括原始数据、分析的过程和结果；这样保证了文件格式的标准，同时可以追溯每一步的分析，以及图表的绘制参数。这一方案为实现可重复分析提供了基础。比如文章投稿，同时提供分析过程的文件，方便同行学习、重复结果分析以及结果的再利用。  
-
-​        由qiime2产生的数据类型，叫<u>qiime 2对象(artifacts)</u>，通常包括<u>数据和元数据/样本信息(metadata)</u>。元数据描述数据，包括类型、格式和它如何产生。典型的扩展名为.qza。  qiime2采用对象代替原始数据文件(如fasta文件)，因此分析者必须导入数据来创建qiime2对象。
-
-​       使用artifact(对象)一词可能产生混淆，因为其通常的意思为实验偏差的来源。我们这里artifact的意思是指被多步处理的对象。
+- qiiime2为了使分析流程标准化，分析过程可重复，制定了<u>统一的分析过程文件格式.qza</u>；qza文件类似于一个封闭的文件格式(本质上是个标准格式的压缩包)，里面包括原始数据、分析的过程和结果；这样保证了文件格式的标准，同时可以追溯每一步的分析，以及图表的绘制参数。这一方案为实现可重复分析提供了基础。比如文章投稿，同时提供分析过程的文件，方便同行学习、重复结果分析以及结果的再利用。  
+- 由qiime2产生的数据类型，叫<u>qiime 2对象(artifacts)</u>，通常包括<u>数据和元数据/样本信息(metadata)</u>。元数据描述数据，包括类型、格式和它如何产生。典型的扩展名为.qza。  qiime2采用对象代替原始数据文件(如fasta文件)，因此分析者必须导入数据来创建qiime2对象。
+- 使用artifact(对象)一词可能产生混淆，因为其通常的意思为实验偏差的来源。这里的artifact的意思是指被多步处理的对象。
 
 ### 2.1.2Data files: visualizations
 
-​        qiime2生成的<u>图表结果对象或文件类型，以.qzv为扩展名，末尾的v代表visual</u>；它同qza文件类似，包括分析方法和结果，方便追溯图表是如何产生的；唯一与qza不同的，它是分析的终点，即结果的呈现，不会在流程中继续分析。可视化的结果包括统计结果表格、交互式图像、静态图片及其它组合的可视化呈现。这类文件可以使用 qiime tools view命令查看。  
-
-​       不安装qiime2程序也可在线 https://view.qiime2.org/ 导入文件并显示结果图表，同时可查看数据分析过程。
+-  qiime2生成的<u>图表结果对象或文件类型，以.qzv为扩展名，末尾的v代表visual</u>；它同qza文件类似，包括分析方法和结果，方便追溯图表是如何产生的；唯一与qza不同的，它是分析的终点，即结果的呈现，不会在流程中继续分析。可视化的结果包括统计结果表格、交互式图像、静态图片及其它组合的可视化呈现。这类文件可以使用 qiime tools view命令查看。  
+- 不安装qiime2程序也可在线 https://view.qiime2.org/ 导入文件并显示结果图表，同时可查看数据分析过程。
 
 ### 2.1.3Semantic types  
 
-​         qiime2每步分析中产生的qza文件，都有相应的语义类型，以便程序识别和分析。
-
-​          常用的语义类型有：
+- qiime2每步分析中产生的qza文件，都有相应的语义类型，以便程序识别和分析。
+- 常用的语义类型有：
 
 | FeatureTable[Frequency]                   | 频率，即Feature表(OTU表)，为每个样品中对应OTU出现频率的表格  |
 | :---------------------------------------- | :----------------------------------------------------------- |
@@ -135,7 +125,8 @@ qiime --help
 
 ### 2.1.4Plugins
 
-常用的插件有：
+- 常用的插件有：
+
 
 | q2-alignment          | 生成和操作多序列比对                             |
 | :-------------------- | ------------------------------------------------ |
@@ -160,7 +151,8 @@ qiime --help
 | q2-types              | 定义微生物组分析的类型                           |
 | q2-vsearch            | 聚类和去冗余                                     |
 
-​       插件的功能见上方<u>qiime 插件 --help</u>弹出的信息,例如<u>qiime alignment --help</u>可以查看qiime alignment插件的功能和使用方法。
+- 插件的功能见上方<u>qiime 插件 --help</u>弹出的信息,例如<u>qiime alignment --help</u>可以查看qiime alignment插件的功能和使用方法。
+
 
 # 3.qiime流程概述
 
@@ -179,7 +171,8 @@ qiime --help
 
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/3.qiime%20data%20analysis%20workflow.png)
 
-黄色框代表操作方法，绿色框代表文件或数据
+-  黄色框代表操作方法，绿色框代表文件或数据
+
 
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/4.qiime%20data%20analysis%20workflow%20chinese.png)
 
@@ -194,7 +187,7 @@ qiime --help
   qiime1使用OTU作为feature,而qiime2使用ASV作为feature,为什么？？？
   
 
-### 3.2.1样本拆分（demultiplex）
+###    3.2.1样本拆分（demultiplex）
 
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/5.sample%20demux%20and%20denoise%20workflow.png)
 
@@ -218,16 +211,16 @@ qiime --help
 
 -  通常情况下，测序公司返回的测序文件有raw.fastq和clean.fastq两种。针对raw.fastq,如果使用deblur去噪，我们需要使用q2-cutadapt去除primer、barcode等非生物序列和使用q2-demux进行样本拆分方能进行下一步分析；如果使用dada2去噪，我们不需要使用q2-cutadapt去除非生物序列，直接使用q2-demux进行样本拆分便可，因为dada2具有修剪非生物序列的功能。
 
--  <u>综合上述分析，从去噪步骤简便角度看，优先选用dada2去噪</u>!!!
+- <u>综合上述分析，从去噪步骤简便角度看，优先选用dada2去噪</u>!!!
 
   ### 3.2.3特征表 （feature table)
 
-  特征表是qiime中分析的核心。几乎所有的分析步骤(除样本拆分和去噪外)都以某种方式涉及特征表。 
+- 特征表是qiime中分析的核心。几乎所有的分析步骤(除样本拆分和去噪外)都以某种方式涉及特征表。 
 
   ### 3.2.4物种分类和分类学分析 (taxonomy classification and taxonomic analyses)
-  
-  我们可以通过要查询的序列（即ASV）与具有已知分类信息的参考序列数据库进行比较来获得物种注释。仅仅找到最接近的比对结果并不一定是最好的，因为其他相同或接近的序列可能具有不同的分类注释。因此，我们使用基于比对、k-mer频率等物种分类器来确定最接近的分类学关联，并具有一定程度的置信度或一致区域（如果不能确定地预测物种名称，那么这可能不是同一物种）。
-  
+
+- 我们可以通过要查询的序列（即ASV）与具有已知分类信息的参考序列数据库进行比较来获得物种注释。仅仅找到最接近的比对结果并不一定是最好的，因为其他相同或接近的序列可能具有不同的分类注释。因此，我们使用基于比对、k-mer频率等物种分类器来确定最接近的分类学关联，并具有一定程度的置信度或一致区域（如果不能确定地预测物种名称，那么这可能不是同一物种）。
+
   ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/6.specis%20class%20workflow.png)
 
 - q2-feature-classifier包括三种不同的分类方法。classify-consensus-blast和classify-consensus-vsearch都是基于比对的方法，可以在N个最好的比对结果中找一致最高的用于分类。这些方法直接参考数据库FeatureData[Taxonomy]和FeatureData[Sequence]文件，不需要预先训练。  
@@ -236,15 +229,15 @@ qiime --help
 
 - 训练分类器需要用到特定的物种分类数据库（比如Greengenes database）和你自己测序时的引物序列，训练步骤是：<u>先用引物定位Greengenes中的参考序列，然后截取出这些参考序列（截取出的参考序列长度和你测序获得的序列长度类似），然后把这些序列与物种分类名称匹配，这样就获得了“分类器”。所以分类器具有“物种数据库和标记基因”特异性。</u>
 
--  <u>本例中将 使用classify-sklearning进行分类。  所有分类器生成一个FeatureData[Taxonomy]对象，其中包含每个查询序列的物种分类信息。</u>  
+- <u>本例中将 使用classify-sklearning进行分类。  所有分类器生成一个FeatureData[Taxonomy]对象，其中包含每个查询序列的物种分类信息。</u>  
 
   ### 3.2.5多序列比对和进化树构建 Sequence alignment and phylogeny building  
 
-  通常多样性分析依赖于个体特征之间的系统发育相似性。如果你正在进行系统发育标记基因测序（例如，16S rRNA基因），你可以多序列对齐(align)这些序列来评估每个特征之间的系统发育关系。然后这个系统发育树可以被其他下游分析使用，例如UniFrac距离分析。  用于对齐序列和产生系统发育的不同方法展示在下面的流程图中。
+- 通常多样性分析依赖于个体特征之间的系统发育相似性。如果你正在进行系统发育标记基因测序（例如，16S rRNA基因），你可以多序列对齐(align)这些序列来评估每个特征之间的系统发育关系。然后这个系统发育树可以被其他下游分析使用，例如UniFrac距离分析。  用于对齐序列和产生系统发育的不同方法展示在下面的流程图中。
 
   ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/7.Sequence%20alignment%20and%20phylogeny%20building%20.png)
 
-### 3.2.6多样性分析 Diversity analysis
+###     3.2.6多样性分析 Diversity analysis
 
 - 样本中有多少不同的物种/OTUs/ASVs？  每个样本存在多少系统发育多样性？  单个样本和样本组有多相似/不同？  哪些因素与微生物组成和多样性的差异相关呢？ 这些问题可以通过α和β多样性分析来回答。Alpha多样性测量单个样本中的多样性水平。β多样性测量样本之间的多样性或差异程度。然后我们可以使用统计检验来说明样本组之间的α多样性是否不同（例如，指出哪些组具有更多/更少的物种丰富度）以及组之间的β多样性是否显著差异（例如，确定一个组中的样本比另一个组中的样本更相似），通过这些结果来证明这些组中的成员正在形成一个特定的微生物组成。  
 
@@ -343,11 +336,14 @@ cd qiime2
   " ::: $(ls *.sra)
   # 删除sra文件
   rm *.sra
+  #查看fastq文件
+  head -n 20 SRR11573560.fastq
   ```
 
-## 5.2数据导入 Importing data
+## 4.3数据导入 Importing data
 
-相关插件：qiime tools import
+- 相关插件：qiime tools import
+
 
 ```
 # 查看可用导入格式
@@ -358,168 +354,108 @@ qiime tools import --show-importable-types
 
 - 本例中导入fastq数据，需要manifest file，这是一个纯文本文件，主要作用是告诉软件每个fastq数据的样本名和序列方向。导入的数据是双端序列，那么manifest file一般有3列，分别是样本id、文件名和序列方向。导入的数据如果是单端序列，manifest file一般有2列，分别是样本id和文件名。
 
-- manifest文件基本要求如下：  1）文件必须是制表符分隔的纯文本文件，如tsv或txt文件； 2）注释行以#开头，可以出现在文中任意位置，程序会自己忽略； 3）空行也会被忽略； 第一行为表头，与QIIME1相比不再以#开头，更合理； 4）表头每列名称必须唯一，不能包括标点符号; 5）建议实验设计只使用字母和数字，任何符号在后续分析都可能会有问题 文件至少包括除表头外的一行数据； 第一列为样品名，用于标识每个样品，名字必须唯一。
+- manifest.tsv文件基本要求如下： 
 
-- 本例使用的是双端测序数据，已知在当前工作目录下必须有fastq数据文件和导入fastq数据的manifes.tsv
+  1.文件必须是制表符分隔的纯文本文件，如tsv或txt文件； 
 
-- Keemei是一个用于验证示例元数据的Google Sheets插件。在开始任何分析之前，样本元数据的验证非常重要。尝试按照Keemei网站上的说明安装Keemei并验证你的manifest.tsv文件
+  2.注释行以#开头，可以出现在文中任意位置，程序会自己忽略； 
+
+  3.空行也会被忽略； 第一行为表头，与QIIME1相比不再以#开头，更合理； 
+
+  4.表头每列名称必须唯一，不能包括标点符号; 
+
+  5.建议manifest.tsv文件只使用字母和数字，任何符号在后续分析都可能会有问题 。文件至少包括除表头外的一行数据； 第一列为样品名，用于标识每个样品，名字必须唯一。
+
+- 已知本例使用的是单端测序数据且当前工作目录下必须有fastq数据文件和导入fastq数据的manifes.tsv
+
+- 可知样本数据共有27个，这里以SRR11573560.fastq为例子
 
   ```
-  #获取manifest.tsv
-  
+  #用制表分隔符即tab键创建一个tsv文件，示例如下
+  sample-id	absolute-filepath
+  SRR11573560.fastq	$PWD/SRR11573560.fastq
   #查看清单文件
-  head -n3 manifest.tsv
-  ```
-  
-  清单文件内容示例
-
+  head  manifest.tsv
   ```
 
-  ```
-  
   注：使用此清单格式时，样本名称只能出现在一行中，并且每列只能映射到每列一个文件名（单端为一列，双端为两列）。 每个样本的绝对文件路径必须是绝对路径，它指定文件的“完整”位置。 在这里使用$ PWD变量，这意味着输入文件manifest.tsv和fastq以及输出文件都必须在当前的工作目录中。
 
   ```
-  
-  ```
-# 使用清单文件导入数据
+  #使用清单文件导入fastq数据
   qiime tools import \
-   --type 'SampleData[PairedEndSequencesWithQuality]' \
-   --input-path manifest.tsv \
-   --output-path paired-end-demux.qza \
-   --input-format PairedEndFastqManifestPhred33V2
-   # 结果可视化
-   qiime demux summarize \
-    --i-data paired-end-demux.qza \
-    --o-visualization paired-end-demux.qzv
-
+  --type 'SampleData[SequencesWithQuality]' \
+  --input-path manifest.tsv \
+  --output-path demux.qza \
+  --input-format SingleEndFastqManifestPhred33V2
+  #结果可视化
+  qiime demux summarize \
+  --i-data demux.qza \
+  --o-visualization demux.qzv
+  # 使用https://view.qiime2.or查看qzv文件可视化结果
   ```
-  
-  使用https://view.qiime2.or查看qzv文件可视化结果
 
-## 5.3序列质量控制和特征表 Sequence quality control and feature table
+- 得到的demux.qzv文件可以查看样本的序列和测序深度，它提供每个样本中序列数及序列质量的信息。
 
-  ```
-time qiime dada2 denoise-paired \
---i-demultiplexed-seqs paired-end-demux.qza \
---p-trunc-len-f 180 \
---p-trunc-len-r 180 \
---o-table dada2_table.qza \
---o-representative-sequences dada2_rep_set.qza \
---o-denoising-stats dada2_stats.qza
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/13.png)
+
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/14.png)
+
+##  4.4序列质量控制和特征表 Sequence quality control and feature table
+
+- 由前面分析可知，这里使用dada2进行质量控制并且本例数据为单端测序的数据，因此使用命令qiime dada2 denoise-single。<u>qiime dada2 denoise-single方法要求设置--p-trunc-len参数，这可以控制序列的长度，并应根据质量得分的下降进行选择。在本例中，从上图可以看到质量得分在测序运行中相对均匀分布并且大部分序列在416bp以上，因此选择416bp。</u>
 
 ```
-
-## 5.4特征表可视化
-
-```
-# 统计结果可视化
-time qiime metadata tabulate \   
---m-input-file dada2_stats.qza  \   
---o-visualization dada2_stats.qzv
-# 特征表摘要
-time qiime feature-table summarize \   
---i-table dada2_table.qza \   
---m-sample-metadata-file metadata.tsv \   
---o-visualization dada2_table.qzv
-# 代表序列
+#序列质控
+qiime dada2 denoise-single \
+--i-demultiplexed-seqs demux.qza \
+--p-trim-left 0 \
+--p-trunc-len 416 \
+--o-table table.qza \
+--o-representative-sequences rep-seqs.qza \
+--o-denoising-stats stats.qza
+#统计结果可视化
+time qiime metadata tabulate \
+--m-input-file stats.qza \
+--o-visualization stats.qzv
+#特征表摘要可视化
+qiime feature-table summarize \
+--i-table table.qza \
+--o-visualization table.qzv \
+--m-sample-metadata-file metadata.tsv
+#代表序列
 qiime feature-table tabulate-seqs \
---i-data dada2_rep_set.qza \
---o-visualization dada2_rep_set.qzv
-
+--i-data rep-seqs.qza \
+--o-visualization rep-seqs.qzv
 ```
 
-## 5.5构建多样性分析所需的进化树
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/15.png)
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/16.png)
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/17.png)
+
+## 4.5物种注释
 
 ```
-time qiime phylogeny align-to-tree-mafft-fasttree \
---i-sequences dada2_rep_set.qza \
---o-alignment aligned-rep-seqs.qza \
---o-masked-alignment masked-aligned-rep-seqs.qza \
---o-tree unrooted-tree.qza \
---o-rooted-tree rooted-tree.qza
-
-```
-
-## 5.6核心多样性
-
-```
-time qiime diversity core-metrics-phylogenetic \
---i-phylogeny rooted-tree.qza \
---i-table dada2_table.qza \
---p-sampling-depth 21934 \
---m-metadata-file metadata.tsv \
---output-dir core-metrics-results
-```
-
-## 5.7aphla多样性
-
-```
-# aphla多样性
-qiime diversity alpha-group-significance \
---i-alpha-diversity core-metrics-results/faith_pd_vector.qza \
---m-metadata-file metadata.tsv \
---o-visualization core-metrics-results/faith-pd-group-significance.qzv
-# aphla显著性分析和可视化
-qiime diversity alpha-group-significance \
---i-alpha-diversity core-metrics-results/evenness_vector.qza \
---m-metadata-file metadata.tsv \
---o-visualization core-metrics-results/evenness-group-significance.qzv
-# alpha稀疏取线
-time qiime diversity alpha-rarefaction \
---i-table ./dada2_table.qza \
---i-phylogeny rooted-tree.qza \
---p-max-depth 48400 \
---m-metadata-file metadata.tsv \
---o-visualization alpha-rarefaction.qzv
-
-```
-
-## 5.8beta多样性
-
-```
-time qiime diversity beta-group-significance \
---i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza \
---m-metadata-file metadata.tsv \
---m-metadata-column group \
---o-visualization core-metrics-results/unweighted-unifrac-group -significance.qzv \
-
-time qiime diversity beta-group-significance \
---i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza \
---m-metadata-file metadata.tsv \
---m-metadata-column phenol-concentration \
---o-visualization core-metrics-results/unweighted-unifrac-phenol-concentration-significance.qzv \
---p-pairwise
-
-time qiime diversity beta-group-significance \
---i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza \
---m-metadata-file metadata.tsv \
---m-metadata-column septum \
---o-visualization core-metrics-results/unweighted-unifrac-septum-significance.qzv \
---p-pairwise
-```
-
-## 5.9物种注释
-
-```
-# 物种注释
-time qiime feature-classifier classify-sklearn \
---i-reads dada2_rep_set.qza \
---i-classifier gg-13-8-99-nb-classifier.qza \
---o-classification taxonomy.qza
-# 可视化物种注释为表
-qiime metadata tabulate \
---m-input-file taxonomy.qza \
---o-visualization taxonomy.qzv
-# 物种组成柱状图
+#物种注释
+qiime feature-classifier classify-sklearn \
+ --i-reads rep-seqs.qza \
+ --i-classifier gg-13-8-99-nb-classifier.qza \
+ --o-classification taxonomy.qza
+#物种注释可视化
 qiime taxa barplot \
---i-table dada2_table.qza \   
---i-taxonomy taxonomy.qza \   
---m-metadata-file metadata.tsv \   
+--i-table table.qza \
+--i-taxonomy taxonomy.qza \
+--m-metadata-file metadata.tsv \
 --o-visualization taxa-bar-plots.qzv
-
-
+#物种组成柱状图
+qiime taxa barplot \
+ --i-table table.qza \
+ --i-taxonomy taxonomy.qza \
+ --m-metadata-file metadata.tsv \
+ --o-visualization taxa-bar-plots.qzv
 ```
 
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/18.png)
 
-```
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/19.png)
