@@ -21,17 +21,13 @@ conda update conda
 
 注：安装过程中按提示操作： 
 
-1. 一直按回车键查看许可协议
-
-2. 输入yes同意许可协议
-
-3. 默认安装目录为家目录下 ''~/miniconda3 ''，也可以手动输入一个指定的安装目录，推荐按回车使用默认目录
-
-4. miniconda3 安装成功,默认运行base包，打开终端命令行最前面会出现（base)
-
-5. 如果运行安装没有权限，可运行  export PATH="~/miniconda3/bin:$PATH"  手动添加新安装的 miniconda3 至环境变量，或者 source ~/.bashrc 更新环境变量  
-
-6. (可选)添加常用软件下载频道，以及国内镜像加速下载。 
+1. 一直按回车键查看许可协议，出现是否同意协议，输入yes同意许可协议
+2. 出现是否同意安装在家目录，输入yes同意
+3. 出现是否初始化，输入yes同意
+4. 默认安装目录为家目录下 ''~/miniconda3 ''，也可以手动输入一个指定的安装目录，推荐按回车使用默认目录
+5. miniconda3 安装成功,默认运行base包，打开终端命令行最前面会出现（base)
+6. 如果运行安装没有权限，可运行  export PATH="~/miniconda3/bin:$PATH"  手动添加新安装的 miniconda3 至环境变量，或者 source ~/.bashrc 更新环境变量  
+7. (可选)添加常用软件下载频道，以及国内镜像加速下载。 
 
 ```
 # 添加常用下载频道 
@@ -102,6 +98,13 @@ prefetch --help
 ```
 # 使用 brew 安装 sratoolkit
 brew install sra toolkit
+```
+
+### 1.3 parallel安装
+
+```
+# parallel是进行多线程运行的工具，并行运行可以提升效率，节省时间
+brew install parallel
 ```
 
 # 2. qiime2 背景介绍
@@ -226,25 +229,46 @@ brew install sra toolkit
 - q2-feature-classifier 包括三种不同的分类方法。
 - classify-consensus-blast 和 classify-consensus-vsearch 都是基于比对的方法，可以在N个最好的比对结果中找一致最高的用于分类。这些方法直接参考数据库 FeatureData[Taxonomy] 和 FeatureData[Sequence] 文件，不需要预先训练。  
 - 基于机器学习的分类方法是通过 classify-sklearn 实现的。理论上讲， scikit-learn 中的任何分类方法均可应用于物种分类。用于物种分类的软件或插件叫“分类器”，
-- 训练分类器需要用到特定的物种分类数据库（比如Greengenes database）和你自己测序时的引物序列，训练步骤是：先用引物定位 Greengenes 中的参考序列，然后截取出这些参考序列（截取出的参考序列长度和你测序获得的序列长度类似），然后把这些序列与物种分类名称匹配，这样就获得了“分类器”。所以分类器具有“物种数据库和标记基因”特异性
+- 训练分类器需要用到特定的物种分类数据库（比如Greengenes database）和你自己测序时的引物序列，训练步骤是：先用引物定位 Greengenes 中的参考序列，然后截取出这些参考序列（截取出的参考序列长度和你测序获得的序列长度类似），然后把这些序列与物种分类名O称匹配，这样就获得了“分类器”。所以分类器具有“物种数据库和标记基因”特异性
 - 本例中将 使用 classify-sklearning 进行分类。  所有分类器生成一个 FeatureData[Taxonomy] 对象，其中包含每个查询序列的物种分类信息。
 
-### 3.2.5 多序列比对和进化树构建 Sequence alignment and phylogeny building  
+### 3.2.5 进化树构建  phylogeny building  
 
-- 通常多样性分析依赖于个体特征之间的系统发育相似性。如果正在进行系统发育标记基因测序（例如，16S rRNA基因），可以多序列对齐 (align) 这些序列来评估每个特征之间的系统发育关系。然后这个系统发育树可以被其他下游分析使用，例如 UniFrac 距离分析。  用于对齐序列和产生系统发育的不同方法展示在下面的流程图中。
+- 为了生成系统发育树，我们将使用 q2-phylogeny 插件中的 align-to-tree-mafft-fasttree 工作流程。  首先，工作流程使用 maft 程序执行对 featuredata[sequence] 中的序列进行多序列比对，以创建 featuredata[alignedsequence] 。 接下来，流程过滤对齐的的高度可变区(高变区)，这些位置通常被认为会增加系统发育树的噪声。随后，流程应用 fasttree 基于过滤后的比对结果生成系统发育树。fasttree 程序创建的是一个无根树，因此在本流程的最后一步中，应用根中点法将树的根放置在无根树中最长端到端距离的中点，从而形成有根树。
 
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/7.Sequence%20alignment%20and%20phylogeny%20building%20.png)
 
 ### 3.2.6 多样性分析 Diversity analysis
 
-- 样本中有多少不同的物种 OTUs/ASVs？  每个样本存在多少系统发育多样性？  单个样本和样本组有多相似/不同？  哪些因素与微生物组成和多样性的差异相关呢？ 这些问题可以通过α和β多样性分析来回答。Alpha 多样性测量单个样本中的多样性水平。β多样性测量样本之间的多样性或差异程度。然后可以使用统计检验来说明样本组之间的α多样性是否不同（例如，指出哪些组具有更多/更少的物种丰富度）以及组之间的β多样性是否显著差异（例如，确定一个组中的样本比另一个组中的样本更相似），通过这些结果来证明这些组中的成员正在形成一个特定的微生物组成。  
-- 样本数据-α多样性 SampleData[AlphaDiversity] 对象，其中包含特征表中每个样本的α多样性估计。这是α多样性分析的核心对象。  
-- 距离矩阵 DistanceMatrix 对象，包含特征表中每对样本之间的成对距离/差异。这是β多样性分析的核心对象。  
-- 主坐标结果 PCoAResults 对象，包含每个距离/不同度量的主坐标排序结果。主坐标分析是一种降维技术，有助于在二维或三维空间中进行样本相似度或差异的可视化比较。
+- Alpha 多样性测量单个样本中的多样性水平，其多样性指数是反映样本中微生物丰富度和均匀度的综合指标。β多样性测量样本之间的多样性或差异程度。可以用 features（ASV）的丰度信息进行样本间距离计算， 也可以用 features（ASV）之间的系统发生关系进行计算。
+
+1. α多样性 
+
+ Shannon’s diversity index ：定量群落丰富度的指数，包括丰富度（richness）和均匀度（evenness）两个层面.
+
+ Observed OTUs ：一种群落丰富度的定性方法
+
+ Faith’s系统发育多样性：结合群落特征之间的系统发育关系的对群落丰富度进行定性
+
+ 均匀度 Evenness 或 Pielou’s 均匀度：度量群落均匀度
+
+2. β多样性 
+
+Jaccard 距离：一种群落差异的定性指数，即只考虑种类，不考虑丰度
+
+Bray-Curtis 距离：一种群落差异的定量方法
+
+UniFrac 是用于比较生物群落的一种距离度量，它在计算过程中包含了遗传距离（phylogenetic distances）的信息, 根据构建的进化树枝的长度计量两个不同环境样品之间的差异。
+
+非加权 UniFrac 距离（ unweighted UniFrac distance）：结合群落特征之间的系统发育关系对群落差异度进行定性。
+
+加权 UniFrac 距离（weighted UniFrac distance )：结合群落特征之间的系统发育关系对群落差异度进行定量。
 
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/8.%20Diversity%20analysis%20workflow.png)
 
-# 4. 数据分析
+其中 Unweighted UniFrac distance 只考虑了物种在样本中是否存在，因此结果中，0表示两个微生物群落间 ASV的种类一致。而 Weighted UniFrac distance  则同时考虑物种的存在及其丰度，结果中的0则表示群落间 ASV 的种类和数量都一致。
+
+# 4. 单项数据分析
 
 ## 4.1 启动 qiime2 运行环境
 
@@ -261,7 +285,7 @@ cd qiime2-2020.11/project1
 
 ## 4.2 数据下载
 
-### 4.2.1 参考数据下载
+### 4.2.1 分类器下载
 
 - 在 qiime 官方文档    https://docs.qiime2.org/2020.11/   中可以看到可供下载的 16s 数据库有 greengene 和silva。并且两种数据库都有基于全长和基于可变区进行训练的分类器，通常选择基于全长进行训练,因为即使测的可变区对用全长训练也没有较大影响。
 
@@ -337,9 +361,9 @@ qiime tools import --show-importable-types
 - 可知样本数据共有27个，这里以SRR11573560.fastq为例子
 
   ```
-  # 用制表分隔符即 tab 键创建一个 tsv 文件，示例如下
+  # 用制表分隔符即 tab 键创建一个 manifest.tsv 文件，示例如下
   sample-id	absolute-filepath
-  SRR11573560.fastq	$PWD/SRR11573560.fastq
+  SRR11573560 	$PWD/SRR11573560.fastq
   # 查看清单文件
   head manifest.tsv
   ```
@@ -394,17 +418,20 @@ qiime feature-table tabulate-seqs \
 --o-visualization rep-seqs.qzv
 ```
 
+- stats.qzv 文件可视化可以看到包含样品元数据 sampl-id 和去噪过程中有多少条序列被过滤等信息。
+- stas.qzv 文件可视化后下载的 metadata.tsv 用于 table.qzv 文件的生成
+
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/15.png)
 
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/16.png)
 
+- 并且从 table.qzv 文件可视化中可以看到去噪得到的 ASV 即 feature-id 以及每个 ASV 被测到的次数
+
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/17.png)
 
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/18.png)
+- rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到
 
-- stas.qzv 文件可视化可以看到包含样品元数据 sampl-id 和去噪过程中有多少条序列被过滤等信息。
-- stas.qzv 文件可视化后下载的 metadata.tsv 用于 table.qzv 文件的生成，并且从 table.qzv 文件可视化中可以看到去噪得到的 ASV 即 feature-id 以及每个 ASV 被测到的次数
-- rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到。
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/18.png)
 
 ## 4.5 物种注释
 
@@ -415,11 +442,9 @@ qiime feature-classifier classify-sklearn \
  --i-classifier gg-13-8-99-nb-classifier.qza \
  --o-classification taxonomy.qza
 # 物种注释可视化
-qiime taxa barplot \
---i-table table.qza \
---i-taxonomy taxonomy.qza \
---m-metadata-file metadata.tsv \
---o-visualization taxa-bar-plots.qzv
+qiime metadata tabulate \
+--m-input-file taxonomy.qza \
+--o-visualization taxonomy.qzv
 # 物种组成柱状图
 qiime taxa barplot \
  --i-table table.qza \
@@ -428,13 +453,258 @@ qiime taxa barplot \
  --o-visualization taxa-bar-plots.qzv
 ```
 
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/19.png)
-
 - 物种注释后得到的 taxonomy.qzv 文件可视化后可以看到每个 ASV (feature-id) 对应的物种注释信息，分类方式主要为 kingdom (界)、phylum (门)、class (纲)、orde (目）、family (科)、genus (属)、species (种）
 
-## 4.6 aphla多样性分析
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/19.png)
 
-## 4.7 beta多样性分析
+- 物种组成柱状图能够更明显的看出注释出的物种的相对丰度(图中所给的是种水平)
+
+# 5. 多项数据分析
+
+## 5.1 启动 qiime2 运行环境
+
+```
+# 进入 qiime2 conda工作环境 
+conda activate qiime2-2020.11 
+# 这时我们的命令行前面出现 (qiime2-2020.11) 表示成功进入工作环境
+# 定位到当前用户工作目录
+cd ~
+# 创建本节学习目录并进入
+mkdir -p qiime2-2020.11/project2
+cd qiime2-2020.11/project2
+```
+
+## 5.2 数据下载
+
+### 5.2.1 分类器下载
+
+```
+# 下载物种注释数据库制作的 greengene 分类器
+wget \   
+-O "gg-13-8-99-nb-classifier.qza" \   
+"https://data.qiime2.org/2020.2/common/gg-13-8-99-nb-classifier.qza"
+# 或者复制粘贴 4.2.1 已经下载的分类器
+cp -r ~/qimme2-2020.11/project1/gg-13-8-99-nb-classifier.qza ~/qiime2-2020.11/project2
+```
+
+### 5.2.2 实验数据来源
+
+```
+# 共27组数据，复制4.2.2得到的 SRR_Acc_List.txt 文件
+cp -r ~/qimme2-2020.11/project1/SRR_Acc_List.txt ~/qiime2-2020.11/project2
+# 使用 sratoolkit 中的 prefetch 工具下载数据
+prefetch --option-file SRR_Acc_List.txt &
+# 将 sra 文件转化为 fastq  文件
+parallel -j 4 "
+    fastq-dump  {1}
+" ::: $(ls *.sra)
+# 删除 sra 文件
+rm *.sra
+```
+
+### 5.3 数据导入
+
+```
+# 将得到的27个 fastq 文件按照NCBI样品信息界面的编号与样本名一一对应的关系将fastq文件改名，方便后续进行多样性分析。
+# 由上述文献可知，O1-O9,W1-W9,M1-M9分别是 Orchard Grass 样本，White clover 样本和混合样本
+并且原文中去掉了 W1 W3 O1 O6 M6 M9 样本
+# 用制表分隔符即 tab 键创建一个 manifest.tsv 文件，示例如下
+sample-id	absolute-filepath
+W2	$PWD/W2.fastq
+W4	$PWD/W4.fastq
+W5	$PWD/W5.fastq
+W6	$PWD/W6.fastq
+W7	$PWD/W7.fastq
+W8	$PWD/W8.fastq
+W9	$PWD/W9.fastq
+O2	$PWD/O2.fastq
+O3	$PWD/O3.fastq
+O4	$PWD/O4.fastq
+O5	$PWD/O5.fastq
+O7	$PWD/O7.fastq
+O8	$PWD/O8.fastq
+O9	$PWD/O9.fastq
+M1	$PWD/M1.fastq
+M2	$PWD/M2.fastq
+M3	$PWD/M3.fastq
+M4	$PWD/M4.fastq
+M5	$PWD/M5.fastq
+M7	$PWD/M7.fastq
+M8	$PWD/M8.fastq
+# 查看清单文件
+head  manifest.tsv
+#使用清单文件导入fastq数据
+qiime tools import \
+--type 'SampleData[SequencesWithQuality]' \
+--input-path manifest.tsv \
+--output-path demux.qza \
+--input-format SingleEndFastqManifestPhred33V2
+#结果可视化
+qiime demux summarize \
+--i-data demux.qza \
+--o-visualization demux.qzv
+# 使用https://view.qiime2.or查看qzv文件可视化结果
+```
+
+## 5.4 序列质量控制和特征表
+
+```
+# 序列质控
+qiime dada2 denoise-single \
+--i-demultiplexed-seqs demux.qza \
+--p-trim-left 0 \
+--p-trunc-len 416 \
+--o-table table.qza \
+--o-representative-sequences rep-seqs.qza \
+--o-denoising-stats stats.qza
+# 去噪过程统计结果可视化
+time qiime metadata tabulate \
+--m-input-file stats.qza \
+--o-visualization stats.qzv
+# 特征表摘要可视化
+qiime feature-table summarize \
+--i-table table.qza \
+--o-visualization table.qzv \
+--m-sample-metadata-file metadata.tsv
+# 代表序列
+qiime feature-table tabulate-seqs \
+--i-data rep-seqs.qza \
+--o-visualization rep-seqs.qzv
+```
+
+- stats.qzv 文件可视化后可以下载 metadata.tsv 文件，metadata.tsv 文件中需要有 categorical（无数字）和numeric（有数字）两种类型的数据，查看 metadata.tsv 文件可知，其中只有 numeric  类型数据 ，因此需要加入 categorical 类型数据 ，本例中可加入的 categories 类型数据有对照变量，即 OrchardGrass  、White clover 和 mixed。
+- table.qzv 文件可视化后可以看到测序量最大的样本是 M8 样本，测序量为29603。测序量最小的样本是 O3 样本，测序量为 18930
+- rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到
+
+## 5.5 物种注释
+
+```
+# 物种注释
+qiime feature-classifier classify-sklearn \
+ --i-reads rep-seqs.qza \
+ --i-classifier gg-13-8-99-nb-classifier.qza \
+ --o-classification taxonomy.qza
+# 物种注释可视化
+qiime metadata tabulate \
+--m-input-file taxonomy.qza \
+--o-visualization taxonomy.qzv
+# 物种组成柱状图
+qiime taxa barplot \
+ --i-table table.qza \
+ --i-taxonomy taxonomy.qza \
+ --m-metadata-file metadata.tsv \
+ --o-visualization taxa-bar-plots.qzv
+```
+
+- 物种注释后得到的 taxonomy.qzv 文件可视化后可以看到每个 ASV (feature-id) 对应的物种注释信息
+
+- 物种组成柱状图能够更明显的看出注释出的物种的相对丰度（图中所给的是纲水平）
+
+## 5.6 核心多样性
+
+```
+# 构建进化树用于多样性分析
+time qiime phylogeny align-to-tree-mafft-fasttree \
+--i-sequences rep-seqs.qza \
+--o-alignment aligned-rep-seqs.qza \
+--o-masked-alignment masked-aligned-rep-seqs.qza \
+--o-tree unrooted-tree.qza \
+--o-rooted-tree rooted-tree.qza
+# 核心多样性
+time qiime diversity core-metrics-phylogenetic \
+--i-phylogeny rooted-tree.qza \
+--i-table table.qza \
+--p-sampling-depth 14639 \
+--m-metadata-file metadata.tsv \
+--output-dir core-metrics-results
+```
+
+- aphla 和 beta 多样性分析，需要基于 rarefaction 标准化的特征表，标准化采用无放回重抽样至序列一致。其中需要用到样品重采样深度参数 --p-sampling-depth。查看 table.qzv，如果数据量都很大，选最小的即可。如果有个别数据量非常小，去除最小值再选最小值。如此既保留了大部分样品用于分析，又去除了数据量过低的异常值。此例中数据量都很大，因选择最小的14639深度重采样。
+
+- 输出四种可视化结果
+
+  unweighted_unifrac_emperor.qzv
+
+  jaccard_emperor.qzv
+
+  bray_curtis_emperor.qzv
+
+  weighted_unifrac_emperor.qzv
+
+## 5.7 aphla 多样性
+
+```
+# aphla 多样性
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core-metrics-results/faith_pd_vector.qza \
+--m-metadata-file metadata.tsv \
+--o-visualization core-metrics-results/faith-pd-group-significance.qzv
+# aphla 显著性分析和可视化
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core-metrics-results/evenness_vector.qza \
+--m-metadata-file metadata.tsv \
+--o-visualization core-metrics-results/evenness_group_significance.qzv
+# aphla 稀疏取线
+time qiime diversity alpha-rarefaction \
+--i-table table.qza \
+--i-phylogeny rooted-tree.qza \
+--p-max-depth 22000 \
+--m-metadata-file metadata.tsv \
+--o-visualization alpha-rarefaction.qzv
+```
+
+- 使用 qiime diversity alpha-rarefaction 可视化工具来探索 α 多样性与采样深度的关系。
+
+  该可视化工具在多个采样深度处计算一个或多个α多样性指数，范围介于最小采样深度 --p-min-depth 和最大采样深度 --p-max-depth 之间。在每个采样深度，将生成10个抽样表，并对表中的所有样本计算alpha多样性指数计算。在每个采样深度，将为每个样本绘制平均多样性值，如果提供样本元数据 --m-metadata-file 参数，则可以基于元数据对样本进行分组。本例中将最大深度设置为接近最大序列数2200。
+
+- faith-pd-group-significance.qzv
+
+- evenness-group-significance.qzv
+
+- alpha-rarefaction.qzv 文件可视化将显示两个图。第一个图将显示作为采样深度函数的 α 多样性（shannon）。这用于基于采样深度确定丰富度或均匀度是否已饱和。当接近最大采样深度时，稀疏曲线变得平稳。第二个图显示了每个采样深度的每个元数据类别组中的样本数。这对于确定样本丢失的采样深度以及元数据列组值是否存在偏差非常有用。
+
+## 5.8 beta 多样性
+
+```
+# unweighted unifrac
+time qiime diversity beta-group-significance \
+--i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza \
+--m-metadata-file metadata.tsv \
+--m-metadata-column group \
+--o-visualization core-metrics-results/unweighted_unifrac_group_significance.qzv \
+--p-pairwise
+# weighted unifrac
+time qiime diversity beta-group-significance \
+  --i-distance-matrix core-metrics-results/weighted_unifrac_distance_matrix.qza \
+  --m-metadata-file metadata.tsv \
+  --m-metadata-column group \
+  --o-visualization core-metrics-results/weighted_unifrac_group_significance.qzv
+```
+
+- unweighted_unifrac_group_significance.qzv 
+- weighted_unifrac_group_significance.qzv
+
+## 5.9ANCOM差异丰度分析
+
+```
+# 按属比较，需要先合并
+time qiime taxa collapse \
+  --i-table table.qza \
+  --i-taxonomy taxonomy.qza \
+  --p-level 6 \
+  --o-collapsed-table table-l6.qza
+# 格式转换
+time qiime composition add-pseudocount \
+  --i-table table-l6.qza \
+  --o-composition-table comp-table-l6.qza
+# 差异比较
+time qiime composition ancom \
+  --i-table comp-table-l6.qza \
+  --m-metadata-file metadata.tsv \
+  --m-metadata-column group \
+  --o-visualization l6-ancom-group.qzv  
+# 分类学差异直接有名称，不用feature再对应物种注释
+```
 
 引用自：
 
