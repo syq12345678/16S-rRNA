@@ -583,6 +583,9 @@ qiime feature-table tabulate-seqs \
 ```
 
 - stats.qzv 文件可视化后可以下载 metadata.tsv 文件，metadata.tsv 文件中需要有 categorical（无数字）和numeric（有数字）两种类型的数据，查看 metadata.tsv 文件可知，其中只有 numeric  类型数据 ，因此需要加入 categorical 类型数据 ，本例中可加入的 categories 类型数据有对照变量，即 OrchardGrass  、White clover 和 mixed。
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/244.png)
+
 - table.qzv 文件可视化后可以看到测序量最大的样本是 M8 样本，测序量为29603。测序量最小的样本是 O3 样本，测序量为 18930
 
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/25.png)
@@ -590,6 +593,8 @@ qiime feature-table tabulate-seqs \
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到
 
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/26.png)
+
+
 
 ## 5.5 物种注释
 
@@ -613,11 +618,12 @@ qiime taxa barplot \
 
 - 物种注释后得到的 taxonomy.qzv 文件可视化后可以看到每个 ASV (feature-id) 对应的物种注释信息
 
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/261.png)
+
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度（图中所给的是纲水平）
 
-  
-
-
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/262.png)
 
 ## 5.6 核心多样性
 
