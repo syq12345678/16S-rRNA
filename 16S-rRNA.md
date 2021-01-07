@@ -459,6 +459,8 @@ qiime taxa barplot \
 
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度(图中所给的是种水平)
 
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/20.png)
+
 # 5. 多项数据分析
 
 ## 5.1 启动 qiime2 运行环境
@@ -504,6 +506,10 @@ rm *.sra
 
 ### 5.3 数据导入
 
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/22.png)
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/21.png)
+
 ```
 # 将得到的27个 fastq 文件按照NCBI样品信息界面的编号与样本名一一对应的关系将fastq文件改名，方便后续进行多样性分析。
 # 由上述文献可知，O1-O9,W1-W9,M1-M9分别是 Orchard Grass 样本，White clover 样本和混合样本
@@ -546,6 +552,10 @@ qiime demux summarize \
 # 使用https://view.qiime2.or查看qzv文件可视化结果
 ```
 
+![Inage text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/24.png)
+
+![Inage text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/23.png)
+
 ## 5.4 序列质量控制和特征表
 
 ```
@@ -574,7 +584,12 @@ qiime feature-table tabulate-seqs \
 
 - stats.qzv 文件可视化后可以下载 metadata.tsv 文件，metadata.tsv 文件中需要有 categorical（无数字）和numeric（有数字）两种类型的数据，查看 metadata.tsv 文件可知，其中只有 numeric  类型数据 ，因此需要加入 categorical 类型数据 ，本例中可加入的 categories 类型数据有对照变量，即 OrchardGrass  、White clover 和 mixed。
 - table.qzv 文件可视化后可以看到测序量最大的样本是 M8 样本，测序量为29603。测序量最小的样本是 O3 样本，测序量为 18930
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/25.png)
+
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/26.png)
 
 ## 5.5 物种注释
 
@@ -600,6 +615,10 @@ qiime taxa barplot \
 
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度（图中所给的是纲水平）
 
+  
+
+
+
 ## 5.6 核心多样性
 
 ```
@@ -620,16 +639,24 @@ time qiime diversity core-metrics-phylogenetic \
 ```
 
 - aphla 和 beta 多样性分析，需要基于 rarefaction 标准化的特征表，标准化采用无放回重抽样至序列一致。其中需要用到样品重采样深度参数 --p-sampling-depth。查看 table.qzv，如果数据量都很大，选最小的即可。如果有个别数据量非常小，去除最小值再选最小值。如此既保留了大部分样品用于分析，又去除了数据量过低的异常值。此例中数据量都很大，因选择最小的14639深度重采样。
-
 - 输出四种可视化结果
 
-  unweighted_unifrac_emperor.qzv
 
-  jaccard_emperor.qzv
+unweighted_unifrac_emperor.qzv
 
-  bray_curtis_emperor.qzv
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/27.png)
 
-  weighted_unifrac_emperor.qzv
+jaccard_emperor.qzv
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/28.png)
+
+bray_curtis_emperor.qzv
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/29.png)
+
+weighted_unifrac_emperor.qzv
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/30.png)
 
 ## 5.7 aphla 多样性
 
@@ -655,13 +682,26 @@ time qiime diversity alpha-rarefaction \
 
 - 使用 qiime diversity alpha-rarefaction 可视化工具来探索 α 多样性与采样深度的关系。
 
-  该可视化工具在多个采样深度处计算一个或多个α多样性指数，范围介于最小采样深度 --p-min-depth 和最大采样深度 --p-max-depth 之间。在每个采样深度，将生成10个抽样表，并对表中的所有样本计算alpha多样性指数计算。在每个采样深度，将为每个样本绘制平均多样性值，如果提供样本元数据 --m-metadata-file 参数，则可以基于元数据对样本进行分组。本例中将最大深度设置为接近最大序列数2200。
 
-- faith-pd-group-significance.qzv
-
-- evenness-group-significance.qzv
+该可视化工具在多个采样深度处计算一个或多个α多样性指数，范围介于最小采样深度 --p-min-depth 和最大采样深度 --p-max-depth 之间。在每个采样深度，将生成10个抽样表，并对表中的所有样本计算alpha多样性指数计算。在每个采样深度，将为每个样本绘制平均多样性值，如果提供样本元数据 --m-metadata-file 参数，则可以基于元数据对样本进行分组。本例中将最大深度设置为接近最大序列数2200。
 
 - alpha-rarefaction.qzv 文件可视化将显示两个图。第一个图将显示作为采样深度函数的 α 多样性（shannon）。这用于基于采样深度确定丰富度或均匀度是否已饱和。当接近最大采样深度时，稀疏曲线变得平稳。第二个图显示了每个采样深度的每个元数据类别组中的样本数。这对于确定样本丢失的采样深度以及元数据列组值是否存在偏差非常有用。
+
+faith-pd-group-significance.qzv
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/31.png)
+
+evenness-group-significance.qzv
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/32.png)
+
+alpha-rarefaction.qzv
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/33.png)
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/34.png)
+
+## 5.8 beta 多样性
 
 ## 5.8 beta 多样性
 
@@ -681,8 +721,13 @@ time qiime diversity beta-group-significance \
   --o-visualization core-metrics-results/weighted_unifrac_group_significance.qzv
 ```
 
-- unweighted_unifrac_group_significance.qzv 
-- weighted_unifrac_group_significance.qzv
+unweighted_unifrac_group_significance.qzv 
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/35.png)
+
+weighted_unifrac_group_significance.qzv
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/36.png)
 
 ## 5.9ANCOM差异丰度分析
 
@@ -705,6 +750,10 @@ time qiime composition ancom \
   --o-visualization l6-ancom-group.qzv  
 # 分类学差异直接有名称，不用feature再对应物种注释
 ```
+
+ l6-ancom-group.qzv 
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/37.png)
 
 引用自：
 

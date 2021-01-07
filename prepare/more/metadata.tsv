@@ -1,4 +1,4 @@
-sample-id	group-id	input	filtered	percentage of input passed filter	denoised	non-chimeric	percentage of input non-chimeric
+sample-id	group	input	filtered	percentage of input passed filter	denoised	non-chimeric	percentage of input non-chimeric
 #q2:types	categorical	numeric	numeric	numeric	numeric	numeric	numeric
 M1	mixed	38016	32582	85.71	27245	26715	70.27
 M2	mixed	38017	31908	83.93	26742	26257	69.07
