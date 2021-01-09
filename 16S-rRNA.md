@@ -1,3 +1,5 @@
+[TOC]
+
 ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/1.16S-rRNA%20general%20workflow.png)
 
 # 1. 软件安装
@@ -100,10 +102,10 @@ prefetch --help
 brew install sra toolkit
 ```
 
-### 1.3 parallel安装
+### 1.3 parallel 安装
 
 ```
-# parallel是进行多线程运行的工具，并行运行可以提升效率，节省时间
+# parallel 是进行多线程运行的工具，并行运行可以提升效率，节省时间
 brew install parallel
 ```
 
