@@ -388,7 +388,11 @@ qiime tools import --show-importable-types
 
 - 得到的 demux.qzv 文件可以查看样本的序列和测序深度，它提供每个样本中序列数及序列质量的信息。
 
-- [demux.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/demux.qzv?raw=true)
+- [demux.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/demux.qzv?raw=true)
+
+- ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/13.png)
+
+- ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/14.png)
 
 ##  4.4 序列质量控制和特征表 Sequence quality control and feature table
 
@@ -420,16 +424,19 @@ qiime feature-table tabulate-seqs \
 
 - stats.qzv 文件可视化可以看到包含样品元数据 sampl-id 和去噪过程中有多少条序列被过滤等信息。
 - stas.qzv 文件可视化后下载的 metadata.tsv 用于 table.qzv 文件的生成
-
-- [stats.qzv](https://view.qiime2.org/visualization/?type=html&src=d6fddf3b-308a-4032-956b-5a46471bc502)
-
 - 并且从 table.qzv 文件可视化中可以看到去噪得到的 ASV 即 feature-id 以及每个 ASV 被测到的次数
-
-- [table.qzv](https://view.qiime2.org/visualization/?type=html&src=ac466a6b-4ed2-4d47-8981-a9d36138fc5c)
-
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到
+- 
 
-- [rep-seqs.qzv](https://view.qiime2.org/visualization/?type=html&src=e2477a0d-b8fd-4774-9e14-72e8ce991e97)
+
+
+
+
+- [stats.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/stats.qzv?raw=true)             
+
+  [rep-seqs.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/rep-seqs.qzv?raw=true)
+
+  [table.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/table.qzv?raw=true)
 
 ## 4.5 物种注释
 
@@ -453,11 +460,11 @@ qiime taxa barplot \
 
 - 物种注释后得到的 taxonomy.qzv 文件可视化后可以看到每个 ASV (feature-id) 对应的物种注释信息，分类方式主要为 kingdom (界)、phylum (门)、class (纲)、orde (目）、family (科)、genus (属)、species (种）
 
-- [taxonomy.qzv](https://view.qiime2.org/visualization/?type=html&src=4cf06615-c5bf-4856-9b0e-6ff224584c08)
-
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度(图中所给的是种水平)
 
-- [taxa-bar-plots.qzv](https://view.qiime2.org/visualization/?type=html&src=d54812c4-1515-4332-a5fe-135a12a52684)
+- [taxonomy.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/taxonomy.qzv?raw=true)
+
+  [taxa-bar-plots.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/taxa-bar-plots.qzv?raw=true)
 
 # 5. 多项数据分析
 
@@ -550,7 +557,7 @@ qiime demux summarize \
 # 使用https://view.qiime2.or查看qzv文件可视化结果
 ```
 
-- [demux.qzv](https://view.qiime2.org/visualization/?type=html&src=351c6e1a-6ef7-4e18-b6dd-8cef4d34e655)
+- [demux.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/demux.qzv?raw=true)
 
 ## 5.4 序列质量控制和特征表
 
@@ -580,15 +587,15 @@ qiime feature-table tabulate-seqs \
 
 - stats.qzv 文件可视化后可以下载 metadata.tsv 文件，metadata.tsv 文件中需要有 categorical（无数字）和numeric（有数字）两种类型的数据，查看 metadata.tsv 文件可知，其中只有 numeric  类型数据 ，因此需要加入 categorical 类型数据 ，本例中可加入的 categories 类型数据有对照变量，即 OrchardGrass  、White clover 和 mixed。
 
-- [stats.qzv](https://view.qiime2.org/visualization/?type=html&src=41b63565-9777-4be5-8b03-f2139876fb1c)
-
 - table.qzv 文件可视化后可以看到测序量最大的样本是 M8 样本，测序量为29603。测序量最小的样本是 O3 样本，测序量为 18930
 
-- [table.qzv](https://view.qiime2.org/visualization/?type=html&src=c35a31d5-0a1c-496b-90c7-9b27f98c5137)
+- rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到。
 
-- rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到
+- [stats.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/stats.qzv?raw=true)
 
-- [rep-seqs.qzv](https://view.qiime2.org/visualization/?type=html&src=b4fa053e-a583-4dbe-9c83-d19d8aeef6ba)
+  [table.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/table.qzv?raw=true)
+
+  [rep-seqs.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/rep-seqs.qzv?raw=true)
 
 ## 5.5 物种注释
 
@@ -612,12 +619,11 @@ qiime taxa barplot \
 
 - 物种注释后得到的 taxonomy.qzv 文件可视化后可以看到每个 ASV (feature-id) 对应的物种注释信息
 
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/261.png)
-
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度（图中所给的是纲水平）
 
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/262.png)
+- [taxonomy.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxonomy.qzv?raw=true)
+
+  [taxa-bar-plots.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxa-bar-plots.qzv?raw=true)
 
 ## 5.6 核心多样性
 
@@ -639,24 +645,13 @@ time qiime diversity core-metrics-phylogenetic \
 ```
 
 - aphla 和 beta 多样性分析，需要基于 rarefaction 标准化的特征表，标准化采用无放回重抽样至序列一致。其中需要用到样品重采样深度参数 --p-sampling-depth。查看 table.qzv，如果数据量都很大，选最小的即可。如果有个别数据量非常小，去除最小值再选最小值。如此既保留了大部分样品用于分析，又去除了数据量过低的异常值。此例中数据量都很大，因选择最小的14639深度重采样。
-- 输出四种可视化结果
+- [bray_curtis_emperor.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/bray_curtis_emperor.qzv?raw=true)
 
+​       [jaccard_emperor.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/jaccard_emperor.qzv?raw=true)
 
-unweighted_unifrac_emperor.qzv
+​       [unweighted_unifrac_emperor.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_emperor.qzv?raw=true)
 
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/27.png)
-
-jaccard_emperor.qzv
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/28.png)
-
-bray_curtis_emperor.qzv
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/29.png)
-
-weighted_unifrac_emperor.qzv
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/30.png)
+​       [weighted_unifrac_emperor.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_emperor.qzv?raw=true)
 
 ## 5.7 aphla 多样性
 
@@ -685,21 +680,15 @@ time qiime diversity alpha-rarefaction \
 
 该可视化工具在多个采样深度处计算一个或多个α多样性指数，范围介于最小采样深度 --p-min-depth 和最大采样深度 --p-max-depth 之间。在每个采样深度，将生成10个抽样表，并对表中的所有样本计算alpha多样性指数计算。在每个采样深度，将为每个样本绘制平均多样性值，如果提供样本元数据 --m-metadata-file 参数，则可以基于元数据对样本进行分组。本例中将最大深度设置为接近最大序列数2200。
 
-- alpha-rarefaction.qzv 文件可视化将显示两个图。第一个图将显示作为采样深度函数的 α 多样性（shannon）。这用于基于采样深度确定丰富度或均匀度是否已饱和。当接近最大采样深度时，稀疏曲线变得平稳。第二个图显示了每个采样深度的每个元数据类别组中的样本数。这对于确定样本丢失的采样深度以及元数据列组值是否存在偏差非常有用。
+alpha-rarefaction.qzv 文件可视化将显示两个图。第一个图将显示作为采样深度函数的 α 多样性（shannon）。这用于基于采样深度确定丰富度或均匀度是否已饱和。当接近最大采样深度时，稀疏曲线变得平稳。第二个图显示了每个采样深度的每个元数据类别组中的样本数。这对于确定样本丢失的采样深度以及元数据列组值是否存在偏差非常有用。
 
-faith-pd-group-significance.qzv
+- [faith-pd-group-significance.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/faith-pd-group-significance.qzv?raw=true)
 
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/31.png)
+​       [evenness-group-significance.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/evenness_group_significance.qzv?raw=true)
 
-evenness-group-significance.qzv
+​       [alpha-rarefaction.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/alpha-rarefaction.qzv?raw=true)
 
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/32.png)
 
-alpha-rarefaction.qzv
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/33.png)
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/34.png)
 
 ## 5.8 beta 多样性
 
@@ -721,13 +710,9 @@ time qiime diversity beta-group-significance \
   --o-visualization core-metrics-results/weighted_unifrac_group_significance.qzv
 ```
 
-unweighted_unifrac_group_significance.qzv 
+- [unweighted_unifrac_group_significance.qzv ](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_group_significance.qzv?raw=true)
 
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/35.png)
-
-weighted_unifrac_group_significance.qzv
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/36.png)
+​       [weighted_unifrac_group_significance.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_group_significance.qzv?raw=true)
 
 ## 5.9ANCOM差异丰度分析
 
@@ -751,9 +736,7 @@ time qiime composition ancom \
 # 分类学差异直接有名称，不用feature再对应物种注释
 ```
 
- l6-ancom-group.qzv 
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/37.png)
+- [ l6-ancom-group.qzv ](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/l6-ancom-group.qzv?raw=true)
 
 引用自：
 
