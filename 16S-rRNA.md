@@ -99,7 +99,7 @@ prefetch --help
 
 ```
 # 使用 brew 安装 sratoolkit
-brew install sra toolkit
+brew install sratoolkit
 ```
 
 ## 1.3 parallel 安装
@@ -388,7 +388,11 @@ qiime tools import --show-importable-types
 
 - 得到的 demux.qzv 文件可以查看样本的序列和测序深度，它提供每个样本中序列数及序列质量的信息。
 
-- [demux.qzv](https://view.qiime2.org/visualization/?type=html&src=d7411101-7bb7-4836-970a-b198681ac254)
+- ![Image](https://github.com/syq12345678/16S-rRNA/blob/master/picture/14.png)
+
+- [demux]: https://view.qiime2.org/visualization/?type=html&amp;src=d7411101-7bb7-4836-970a-b198681ac254
+
+  
 
 ##  4.4 序列质量控制和特征表 Sequence quality control and feature table
 

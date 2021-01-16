@@ -1,3 +1,0 @@
-sample-id	input	filtered	percentage of input passed filter	denoised	non-chimeric	percentage of input non-chimeric
-#q2:types	numeric	numeric	numeric	numeric	numeric	numeric
-SRR11573560.fastq	39008	33546	86	29456	27847	71.39
