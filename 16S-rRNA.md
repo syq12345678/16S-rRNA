@@ -390,7 +390,7 @@ qiime tools import --show-importable-types
 
 - ![Image](https://github.com/syq12345678/16S-rRNA/blob/master/picture/14.png)
 
-- 
+- [demux.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/demux.qzv)
 
   
 
