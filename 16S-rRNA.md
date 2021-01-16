@@ -426,11 +426,11 @@ qiime feature-table tabulate-seqs \
 - stas.qzv 文件可视化后下载的 metadata.tsv 用于 table.qzv 文件的生成
 - 并且从 table.qzv 文件可视化中可以看到去噪得到的 ASV 即 feature-id 以及每个 ASV 被测到的次数
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到
-- 
+- [table.tsv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/table.tsv?raw=true)
 
+[](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/stats.tsv?raw=true?raw=true)
 
-
-
+[](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/stats.tsv)
 
 - [stats.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/stats.qzv?raw=true)             
 
