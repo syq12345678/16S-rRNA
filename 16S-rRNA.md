@@ -390,7 +390,11 @@ qiime tools import --show-importable-types
 
 - ![Image](https://github.com/syq12345678/16S-rRNA/blob/master/picture/14.png)
 
-- [demux]: https://view.qiime2.org/visualization/?type=html&amp;src=d7411101-7bb7-4836-970a-b198681ac254
+- 
+
+  
+
+  
 
   
 
