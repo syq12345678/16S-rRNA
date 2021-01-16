@@ -388,15 +388,7 @@ qiime tools import --show-importable-types
 
 - 得到的 demux.qzv 文件可以查看样本的序列和测序深度，它提供每个样本中序列数及序列质量的信息。
 
-- ![Image](https://github.com/syq12345678/16S-rRNA/blob/master/picture/14.png)
-
-- [demux.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/demux.qzv)
-
-  
-
-  
-
-  
+- [demux.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/demux.qzv?raw=true)
 
 ##  4.4 序列质量控制和特征表 Sequence quality control and feature table
 
