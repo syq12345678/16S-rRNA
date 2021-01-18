@@ -464,7 +464,7 @@ qiime taxa barplot \
 
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度(图中所给的是种水平)
 
-- [taxonomy查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/picture/taxonomy.tsv?raw=true)
+- [taxonomy.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/picture/taxonomy.tsv?raw=true)
 
   [taxonomy.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/taxonomy.qzv?raw=true)
   
