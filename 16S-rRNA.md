@@ -430,9 +430,9 @@ qiime feature-table tabulate-seqs \
 
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到
 
-- [table.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/table.tsv?raw=true)
+- [table.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/picture/table.tsv?raw=true)
 
-  [stats.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/stats.tsv?raw=true)
+  [stats.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/picture/stats.tsv?raw=true)
 
 - [stats.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/stats.qzv?raw=true)             
 
@@ -464,7 +464,7 @@ qiime taxa barplot \
 
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度(图中所给的是种水平)
 
-- [taxonomy查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/taxonomy.tsv?raw=true)
+- [taxonomy查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/picture/taxonomy.tsv?raw=true)
 
   [taxonomy.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/taxonomy.qzv?raw=true)
   
@@ -561,7 +561,9 @@ qiime demux summarize \
 # 使用https://view.qiime2.or查看qzv文件可视化结果
 ```
 
-- [demux.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/demux.qzv?raw=true)
+- [demux.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/demux.tsv?raw=true)
+
+  [demux.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/demux.qzv?raw=true)
 
 ## 5.4 序列质量控制和特征表
 
@@ -595,6 +597,10 @@ qiime feature-table tabulate-seqs \
 
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到。
 
+- [status.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/status.tsv?raw=true)
+
+  [table.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/table.tsv?raw=true)
+
 - [stats.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/stats.qzv?raw=true)
 
   [table.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/table.qzv?raw=true)
@@ -624,6 +630,8 @@ qiime taxa barplot \
 - 物种注释后得到的 taxonomy.qzv 文件可视化后可以看到每个 ASV (feature-id) 对应的物种注释信息
 
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度（图中所给的是纲水平）
+
+- [taxonomy.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/taxonomy.tsv?raw=true)
 
 - [taxonomy.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxonomy.qzv?raw=true)
 
@@ -657,6 +665,14 @@ time qiime diversity core-metrics-phylogenetic \
   [unweighted_unifrac_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_emperor.qzv?raw=true)
 
   [weighted_unifrac_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_emperor.qzv?raw=true)
+  
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/15.png)
+  
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/16.png)
+  
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/17.png)
+  
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/18.png)
 
 ## 5.7 aphla 多样性
 
@@ -692,6 +708,14 @@ alpha-rarefaction.qzv 文件可视化将显示两个图。第一个图将显示�
   [evenness-group-significance.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/evenness_group_significance.qzv?raw=true)
 
   [alpha-rarefaction.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/alpha-rarefaction.qzv?raw=true)
+  
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/faith.svg)
+  
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/evenness.svg)
+  
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/19.png)
+  
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/20.png)
 
 ## 5.8 beta 多样性
 
@@ -716,6 +740,12 @@ time qiime diversity beta-group-significance \
 - [unweighted_unifrac_group_significance.qzv 下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_group_significance.qzv?raw=true)
 
   [weighted_unifrac_group_significance.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_group_significance.qzv?raw=true)
+  
+  [unweighted-beta.tsv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/unweight_beta.pdf?raw=true)
+  
+  [weighted-beta.tsv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/weight_beta.pdf?raw=true)
+
+​      
 
 ## 5.9ANCOM差异丰度分析
 
@@ -740,6 +770,8 @@ time qiime composition ancom \
 ```
 
 - [ l6-ancom-group.qzv下载 ](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/l6-ancom-group.qzv?raw=true)
+
+  [Image text](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/ancom.png)
 
 引用自：
 
