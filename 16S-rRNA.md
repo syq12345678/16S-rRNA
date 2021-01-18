@@ -388,7 +388,7 @@ qiime tools import --show-importable-types
 
 - 得到的 demux.qzv 文件可以查看样本的序列和测序深度，它提供每个样本中序列数及序列质量的信息。
 
-- [demux.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/demux.qzv?raw=true)
+- [demux.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/demux.qzv?raw=true)
 
 - ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/13.png)
 
@@ -426,17 +426,15 @@ qiime feature-table tabulate-seqs \
 - stas.qzv 文件可视化后下载的 metadata.tsv 用于 table.qzv 文件的生成
 - 并且从 table.qzv 文件可视化中可以看到去噪得到的 ASV 即 feature-id 以及每个 ASV 被测到的次数
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到
-- [table.tsv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/table.tsv?raw=true)
+- [table.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/table.tsv?raw=true)
 
-[](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/stats.tsv?raw=true?raw=true)
+​       [stats.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/stats.tsv?raw=true)
 
-[](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/stats.tsv)
+- [stats.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/stats.qzv?raw=true)             
 
-- [stats.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/stats.qzv?raw=true)             
+  [rep-seqs.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/rep-seqs.qzv?raw=true)
 
-  [rep-seqs.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/rep-seqs.qzv?raw=true)
-
-  [table.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/table.qzv?raw=true)
+  [table.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/table.qzv?raw=true)
 
 ## 4.5 物种注释
 
@@ -462,9 +460,11 @@ qiime taxa barplot \
 
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度(图中所给的是种水平)
 
-- [taxonomy.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/taxonomy.qzv?raw=true)
+- [taxonomy查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/taxonomy.tsv?raw=true)
 
-  [taxa-bar-plots.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/taxa-bar-plots.qzv?raw=true)
+  [taxonomy.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/taxonomy.qzv?raw=true)
+  
+  [taxa-bar-plots.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/taxa-bar-plots.qzv?raw=true)
 
 # 5. 多项数据分析
 
