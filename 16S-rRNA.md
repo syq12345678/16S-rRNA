@@ -390,9 +390,9 @@ qiime tools import --show-importable-types
 
 - [demux.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/demux.qzv?raw=true)
 
-- ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/13.png)
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/13.png)
 
-- ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/14.png)
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/14.png)
 
 ##  4.4 序列质量控制和特征表 Sequence quality control and feature table
 
@@ -649,13 +649,14 @@ time qiime diversity core-metrics-phylogenetic \
 ```
 
 - aphla 和 beta 多样性分析，需要基于 rarefaction 标准化的特征表，标准化采用无放回重抽样至序列一致。其中需要用到样品重采样深度参数 --p-sampling-depth。查看 table.qzv，如果数据量都很大，选最小的即可。如果有个别数据量非常小，去除最小值再选最小值。如此既保留了大部分样品用于分析，又去除了数据量过低的异常值。此例中数据量都很大，因选择最小的14639深度重采样。
+
 - [bray_curtis_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/bray_curtis_emperor.qzv?raw=true)
 
-​       [jaccard_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/jaccard_emperor.qzv?raw=true)
+  [jaccard_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/jaccard_emperor.qzv?raw=true)
 
-​       [unweighted_unifrac_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_emperor.qzv?raw=true)
+  [unweighted_unifrac_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_emperor.qzv?raw=true)
 
-​       [weighted_unifrac_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_emperor.qzv?raw=true)
+  [weighted_unifrac_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_emperor.qzv?raw=true)
 
 ## 5.7 aphla 多样性
 
@@ -688,9 +689,9 @@ alpha-rarefaction.qzv 文件可视化将显示两个图。第一个图将显示�
 
 - [faith-pd-group-significance.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/faith-pd-group-significance.qzv?raw=true)
 
-​       [evenness-group-significance.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/evenness_group_significance.qzv?raw=true)
+  [evenness-group-significance.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/evenness_group_significance.qzv?raw=true)
 
-​       [alpha-rarefaction.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/alpha-rarefaction.qzv?raw=true)
+  [alpha-rarefaction.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/alpha-rarefaction.qzv?raw=true)
 
 ## 5.8 beta 多样性
 
@@ -714,7 +715,7 @@ time qiime diversity beta-group-significance \
 
 - [unweighted_unifrac_group_significance.qzv 下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_group_significance.qzv?raw=true)
 
-​       [weighted_unifrac_group_significance.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_group_significance.qzv?raw=true)
+  [weighted_unifrac_group_significance.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_group_significance.qzv?raw=true)
 
 ## 5.9ANCOM差异丰度分析
 
