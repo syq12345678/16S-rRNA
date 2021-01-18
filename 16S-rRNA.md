@@ -423,12 +423,16 @@ qiime feature-table tabulate-seqs \
 ```
 
 - stats.qzv 文件可视化可以看到包含样品元数据 sampl-id 和去噪过程中有多少条序列被过滤等信息。
+
 - stas.qzv 文件可视化后下载的 metadata.tsv 用于 table.qzv 文件的生成
+
 - 并且从 table.qzv 文件可视化中可以看到去噪得到的 ASV 即 feature-id 以及每个 ASV 被测到的次数
+
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到
+
 - [table.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/table.tsv?raw=true)
 
-​       [stats.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/stats.tsv?raw=true)
+  [stats.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/%E5%9B%BE/stats.tsv?raw=true)
 
 - [stats.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/stats.qzv?raw=true)             
 
@@ -557,7 +561,7 @@ qiime demux summarize \
 # 使用https://view.qiime2.or查看qzv文件可视化结果
 ```
 
-- [demux.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/demux.qzv?raw=true)
+- [demux.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/demux.qzv?raw=true)
 
 ## 5.4 序列质量控制和特征表
 
@@ -591,11 +595,11 @@ qiime feature-table tabulate-seqs \
 
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到。
 
-- [stats.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/stats.qzv?raw=true)
+- [stats.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/stats.qzv?raw=true)
 
-  [table.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/table.qzv?raw=true)
+  [table.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/table.qzv?raw=true)
 
-  [rep-seqs.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/rep-seqs.qzv?raw=true)
+  [rep-seqs.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/rep-seqs.qzv?raw=true)
 
 ## 5.5 物种注释
 
@@ -621,9 +625,9 @@ qiime taxa barplot \
 
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度（图中所给的是纲水平）
 
-- [taxonomy.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxonomy.qzv?raw=true)
+- [taxonomy.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxonomy.qzv?raw=true)
 
-  [taxa-bar-plots.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxa-bar-plots.qzv?raw=true)
+  [taxa-bar-plots.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxa-bar-plots.qzv?raw=true)
 
 ## 5.6 核心多样性
 
@@ -645,13 +649,13 @@ time qiime diversity core-metrics-phylogenetic \
 ```
 
 - aphla 和 beta 多样性分析，需要基于 rarefaction 标准化的特征表，标准化采用无放回重抽样至序列一致。其中需要用到样品重采样深度参数 --p-sampling-depth。查看 table.qzv，如果数据量都很大，选最小的即可。如果有个别数据量非常小，去除最小值再选最小值。如此既保留了大部分样品用于分析，又去除了数据量过低的异常值。此例中数据量都很大，因选择最小的14639深度重采样。
-- [bray_curtis_emperor.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/bray_curtis_emperor.qzv?raw=true)
+- [bray_curtis_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/bray_curtis_emperor.qzv?raw=true)
 
-​       [jaccard_emperor.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/jaccard_emperor.qzv?raw=true)
+​       [jaccard_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/jaccard_emperor.qzv?raw=true)
 
-​       [unweighted_unifrac_emperor.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_emperor.qzv?raw=true)
+​       [unweighted_unifrac_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_emperor.qzv?raw=true)
 
-​       [weighted_unifrac_emperor.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_emperor.qzv?raw=true)
+​       [weighted_unifrac_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_emperor.qzv?raw=true)
 
 ## 5.7 aphla 多样性
 
@@ -682,13 +686,11 @@ time qiime diversity alpha-rarefaction \
 
 alpha-rarefaction.qzv 文件可视化将显示两个图。第一个图将显示作为采样深度函数的 α 多样性（shannon）。这用于基于采样深度确定丰富度或均匀度是否已饱和。当接近最大采样深度时，稀疏曲线变得平稳。第二个图显示了每个采样深度的每个元数据类别组中的样本数。这对于确定样本丢失的采样深度以及元数据列组值是否存在偏差非常有用。
 
-- [faith-pd-group-significance.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/faith-pd-group-significance.qzv?raw=true)
+- [faith-pd-group-significance.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/faith-pd-group-significance.qzv?raw=true)
 
-​       [evenness-group-significance.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/evenness_group_significance.qzv?raw=true)
+​       [evenness-group-significance.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/evenness_group_significance.qzv?raw=true)
 
-​       [alpha-rarefaction.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/alpha-rarefaction.qzv?raw=true)
-
-
+​       [alpha-rarefaction.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/alpha-rarefaction.qzv?raw=true)
 
 ## 5.8 beta 多样性
 
@@ -710,9 +712,9 @@ time qiime diversity beta-group-significance \
   --o-visualization core-metrics-results/weighted_unifrac_group_significance.qzv
 ```
 
-- [unweighted_unifrac_group_significance.qzv ](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_group_significance.qzv?raw=true)
+- [unweighted_unifrac_group_significance.qzv 下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_group_significance.qzv?raw=true)
 
-​       [weighted_unifrac_group_significance.qzv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_group_significance.qzv?raw=true)
+​       [weighted_unifrac_group_significance.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_group_significance.qzv?raw=true)
 
 ## 5.9ANCOM差异丰度分析
 
@@ -736,7 +738,7 @@ time qiime composition ancom \
 # 分类学差异直接有名称，不用feature再对应物种注释
 ```
 
-- [ l6-ancom-group.qzv ](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/l6-ancom-group.qzv?raw=true)
+- [ l6-ancom-group.qzv下载 ](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/l6-ancom-group.qzv?raw=true)
 
 引用自：
 
