@@ -597,7 +597,7 @@ qiime feature-table tabulate-seqs \
 
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到。
 
-- [status.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/status.tsv?raw=true)
+- [stats.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/status.tsv?raw=true)
 
   [table.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/table.tsv?raw=true)
 
@@ -719,8 +719,6 @@ alpha-rarefaction.qzv 文件可视化将显示两个图。第一个图将显示�
 
 ## 5.8 beta 多样性
 
-## 5.8 beta 多样性
-
 ```
 # unweighted unifrac
 time qiime diversity beta-group-significance \
@@ -741,13 +739,11 @@ time qiime diversity beta-group-significance \
 
   [weighted_unifrac_group_significance.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_group_significance.qzv?raw=true)
   
-  [unweighted-beta.tsv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/unweight_beta.pdf?raw=true)
+  [unweighted-beta.pdf查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/unweight_beta.pdf?raw=true)
   
-  [weighted-beta.tsv](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/weight_beta.pdf?raw=true)
+  [weighted-beta.pdf查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/weight_beta.pdf?raw=true)
 
-​      
-
-## 5.9ANCOM差异丰度分析
+## 5.9 ANCOM 差异丰度分析
 
 ```
 # 按属比较，需要先合并
@@ -771,7 +767,7 @@ time qiime composition ancom \
 
 - [ l6-ancom-group.qzv下载 ](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/l6-ancom-group.qzv?raw=true)
 
-  [Image text](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/ancom.png)
+  ![Iamge text](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/ancom.png)
 
 引用自：
 
