@@ -631,9 +631,11 @@ qiime taxa barplot \
 
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度（图中所给的是纲水平）
 
+- ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/23.png)
+
 - [taxonomy.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/taxonomy.tsv?raw=true)
 
-- [taxonomy.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxonomy.qzv?raw=true)
+  [taxonomy.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxonomy.qzv?raw=true)
 
   [taxa-bar-plots.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxa-bar-plots.qzv?raw=true)
 
@@ -666,13 +668,13 @@ time qiime diversity core-metrics-phylogenetic \
 
   [weighted_unifrac_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_emperor.qzv?raw=true)
   
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/15.png)
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/26.png)
   
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/16.png)
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/27.png)
   
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/17.png)
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/28.png)
   
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/18.png)
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/29.png)
 
 ## 5.7 aphla 多样性
 
@@ -713,9 +715,9 @@ alpha-rarefaction.qzv 文件可视化将显示两个图。第一个图将显示�
   
   ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/evenness.svg)
   
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/19.png)
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/25.png)
   
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/20.png)
+  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/24.png)
 
 ## 5.8 beta 多样性
 
