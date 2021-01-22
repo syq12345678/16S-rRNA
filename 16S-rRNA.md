@@ -762,7 +762,7 @@ time qiime composition ancom \
 cd ~
 cd qiime2-2020.11/project3
 # 运行 R
-Rscript
+R
 # 安装 phyloseq 和 microbioprocess
 if (!requireNamespace("BiocManager", quietly=TRUE))
     install.packages("BiocManager")
