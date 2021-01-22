@@ -785,85 +785,9 @@ ps_dada2 <- import_qiime2(otuqza=otu, taxaqza=tax,
 ps_dada2 
 ```
 
-```
-# 物种组成分类可视化
-phytax <- get_taxadf(obj=ps_dada2, taxlevel=3)
-phybar <- ggbartax(obj=phytax) +
-  xlab(NULL) + ylab("relative abundance (%)")+
-  theme(axis.text.x=element_text(face="plain",
-                                 color="black",hjust=0.8,vjust=0.6,
-                                 size=9, angle=90))+
-  theme(legend.position="right")
-phybar
-```
 
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/23.png)
 
-```
-# rarefaction 可视化
-  p_rare <- ggrarecurve(obj=ps_dada2, 
-                      indexNames=c("Observe","Chao1","ACE"), 
-                      chunks=300) +
-  theme(legend.spacing.y=unit(0.02,"cm"),
-        legend.text=element_text(size=4))+
-  theme_bw()
-p_rare
 
-# alpha 多样性可视化
-alphaobj <- get_alphaindex(ps_dada2)
-
-head(as.data.frame(alphaobj))
-p_alpha <- ggbox(alphaobj, geom="violin", factorNames="group") + 
-  scale_fill_manual(values=c("#F03B20", "#2874C5", "#EABF00"))+
-  theme(strip.background = element_rect(colour=NA, fill="grey"))
-p_alpha
-```
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/25.png)
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/24.png)
-
-```
-# PCA分析
-pcares <- get_pca(obj=ps_dada2, method="hellinger")
-pcaplot <- ggordpoint(obj=pcares, biplot=TRUE, speciesannot=TRUE,
-                      pc=c(1,2),factorNames=c("group"), ellipse=TRUE) + 
-  scale_color_manual(values=c("#F03B20", "#2874C5", "#EABF00"))
-pcaplot
-# PCOA1
-pcoares <- get_pcoa(obj=ps_dada2, 
-                    distmethod="euclidean", method="hellinger")
-pcoaplot <- ggordpoint(obj=pcoares, biplot=TRUE,
-                       speciesannot=TRUE,pc = c(1,2),
-                       factorNames=c("group"), ellipse=T)
-pcoaplot
-# PCOA2
-pcoares <- get_pcoa(obj=ps_dada2, 
-                    distmethod="Unweighted-UniFrac", 
-                    method="hellinger")
-pcoaplot <- ggordpoint(obj=pcoares, biplot=TRUE,
-                       speciesannot=TRUE,
-                       pc = c(1,2),
-                       factorNames=c("group"), ellipse=T)
-pcoaplot
-# PCOA3
-pcoares <- get_pcoa(obj=ps_dada2, 
-                    distmethod="weighted-UniFrac", 
-                    method="hellinger")
-pcoaplot <- ggordpoint(obj=pcoares, biplot=TRUE,
-                       speciesannot=TRUE,
-                       pc = c(1,2),
-                       factorNames=c("group"), ellipse=T)
-pcoaplot
-```
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/26.png)
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/27.png)
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/28.png)
-
-![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/29.png)
 
 引用自：
 
