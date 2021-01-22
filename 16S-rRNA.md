@@ -383,7 +383,6 @@ qiime tools import --show-importable-types
   qiime demux summarize \
   --i-data demux.qza \
   --o-visualization demux.qzv
-  # 使用https://view.qiime2.or 查看 qzv 文件可视化结果
   ```
 
 - 得到的 demux.qzv 文件可以查看样本的序列和测序深度，它提供每个样本中序列数及序列质量的信息。
@@ -411,11 +410,13 @@ qiime dada2 denoise-single \
 time qiime metadata tabulate \
 --m-input-file stats.qza \
 --o-visualization stats.qzv
+#提取table.tsv文件
+bash table.sh stats.qzv >table.tsv
 # 特征表摘要可视化
 qiime feature-table summarize \
 --i-table table.qza \
 --o-visualization table.qzv \
---m-sample-metadata-file metadata.tsv
+--m-sample-metadata-file table.tsv
 # 代表序列
 qiime feature-table tabulate-seqs \
 --i-data rep-seqs.qza \
@@ -424,15 +425,9 @@ qiime feature-table tabulate-seqs \
 
 - stats.qzv 文件可视化可以看到包含样品元数据 sampl-id 和去噪过程中有多少条序列被过滤等信息。
 
-- stas.qzv 文件可视化后下载的 metadata.tsv 用于 table.qzv 文件的生成
-
-- 并且从 table.qzv 文件可视化中可以看到去噪得到的 ASV 即 feature-id 以及每个 ASV 被测到的次数
+-  table.qzv 文件可视化中可以看到去噪得到的 ASV 即 feature-id 以及每个 ASV 被测到的次数
 
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到
-
-- [table.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/picture/table.tsv?raw=true)
-
-  [stats.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/picture/stats.tsv?raw=true)
 
 - [stats.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/stats.qzv?raw=true)             
 
@@ -452,11 +447,13 @@ qiime feature-classifier classify-sklearn \
 qiime metadata tabulate \
 --m-input-file taxonomy.qza \
 --o-visualization taxonomy.qzv
+#提取taxonomy.tsv文件
+bash taxonomy.sh taxonomy.qzv >taxonomy.tsv
 # 物种组成柱状图
 qiime taxa barplot \
  --i-table table.qza \
  --i-taxonomy taxonomy.qza \
- --m-metadata-file metadata.tsv \
+ --m-metadata-file table.tsv \
  --o-visualization taxa-bar-plots.qzv
 ```
 
@@ -464,11 +461,10 @@ qiime taxa barplot \
 
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度(图中所给的是种水平)
 
-- [taxonomy.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/picture/taxonomy.tsv?raw=true)
-
   [taxonomy.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/taxonomy.qzv?raw=true)
-  
+
   [taxa-bar-plots.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/single/taxa-bar-plots.qzv?raw=true)
+
 
 # 5. 多项数据分析
 
@@ -561,9 +557,7 @@ qiime demux summarize \
 # 使用https://view.qiime2.or查看qzv文件可视化结果
 ```
 
-- [demux.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/demux.tsv?raw=true)
-
-  [demux.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/demux.qzv?raw=true)
+- [demux.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/demux.qzv?raw=true)
 
 ## 5.4 序列质量控制和特征表
 
@@ -580,26 +574,24 @@ qiime dada2 denoise-single \
 time qiime metadata tabulate \
 --m-input-file stats.qza \
 --o-visualization stats.qzv
+#提取table.tsv文件
+bash table.sh stats.qzv >table.tsv
 # 特征表摘要可视化
 qiime feature-table summarize \
 --i-table table.qza \
 --o-visualization table.qzv \
---m-sample-metadata-file metadata.tsv
+--m-sample-metadata-file table.tsv
 # 代表序列
 qiime feature-table tabulate-seqs \
 --i-data rep-seqs.qza \
 --o-visualization rep-seqs.qzv
 ```
 
-- stats.qzv 文件可视化后可以下载 metadata.tsv 文件，metadata.tsv 文件中需要有 categorical（无数字）和numeric（有数字）两种类型的数据，查看 metadata.tsv 文件可知，其中只有 numeric  类型数据 ，因此需要加入 categorical 类型数据 ，本例中可加入的 categories 类型数据有对照变量，即 OrchardGrass  、White clover 和 mixed。
+- metadata.tsv 文件中需要有 categorical（无数字）和numeric（有数字）两种类型的数据，查看 metadata.tsv 文件可知，其中只有 numeric  类型数据 ，因此需要加入 categorical 类型数据 ，本例中可加入的 categories 类型数据有对照变量，即 OrchardGrass  、White clover 和 mixed。
 
 - table.qzv 文件可视化后可以看到测序量最大的样本是 M8 样本，测序量为29603。测序量最小的样本是 O3 样本，测序量为 18930
 
 - rep-seqs.qzv 文件可视化后可以看到 ASV 对应的序列信息并且点击这些序列可以在 NCBI 数据库中找到。
-
-- [stats.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/status.tsv?raw=true)
-
-  [table.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/table.tsv?raw=true)
 
 - [stats.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/stats.qzv?raw=true)
 
@@ -619,11 +611,13 @@ qiime feature-classifier classify-sklearn \
 qiime metadata tabulate \
 --m-input-file taxonomy.qza \
 --o-visualization taxonomy.qzv
+#提取taxonomy.tsv文件
+bash taxonomy.sh taxonomy.qzv >taxonomy.tsv
 # 物种组成柱状图
 qiime taxa barplot \
  --i-table table.qza \
  --i-taxonomy taxonomy.qza \
- --m-metadata-file metadata.tsv \
+ --m-metadata-file table.tsv \
  --o-visualization taxa-bar-plots.qzv
 ```
 
@@ -631,13 +625,10 @@ qiime taxa barplot \
 
 - 物种组成柱状图能够更明显的看出注释出的物种的相对丰度（图中所给的是纲水平）
 
-- ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/23.png)
-
-- [taxonomy.tsv查看](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/taxonomy.tsv?raw=true)
-
-  [taxonomy.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxonomy.qzv?raw=true)
+- [taxonomy.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxonomy.qzv?raw=true)
 
   [taxa-bar-plots.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/taxa-bar-plots.qzv?raw=true)
+
 
 ## 5.6 核心多样性
 
@@ -654,7 +645,7 @@ time qiime diversity core-metrics-phylogenetic \
 --i-phylogeny rooted-tree.qza \
 --i-table table.qza \
 --p-sampling-depth 14639 \
---m-metadata-file metadata.tsv \
+--m-metadata-file table.tsv \
 --output-dir core-metrics-results
 ```
 
@@ -667,14 +658,6 @@ time qiime diversity core-metrics-phylogenetic \
   [unweighted_unifrac_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/unweighted_unifrac_emperor.qzv?raw=true)
 
   [weighted_unifrac_emperor.qzv下载](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/core-metrics-results/weighted_unifrac_emperor.qzv?raw=true)
-  
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/26.png)
-  
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/27.png)
-  
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/28.png)
-  
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/29.png)
 
 ## 5.7 aphla 多样性
 
@@ -682,19 +665,19 @@ time qiime diversity core-metrics-phylogenetic \
 # aphla 多样性
 qiime diversity alpha-group-significance \
 --i-alpha-diversity core-metrics-results/faith_pd_vector.qza \
---m-metadata-file metadata.tsv \
+--m-metadata-file table.tsv \
 --o-visualization core-metrics-results/faith-pd-group-significance.qzv
 # aphla 显著性分析和可视化
 qiime diversity alpha-group-significance \
 --i-alpha-diversity core-metrics-results/evenness_vector.qza \
---m-metadata-file metadata.tsv \
+--m-metadata-file table.tsv \
 --o-visualization core-metrics-results/evenness_group_significance.qzv
 # aphla 稀疏取线
 time qiime diversity alpha-rarefaction \
 --i-table table.qza \
 --i-phylogeny rooted-tree.qza \
 --p-max-depth 22000 \
---m-metadata-file metadata.tsv \
+--m-metadata-file table.tsv \
 --o-visualization alpha-rarefaction.qzv
 ```
 
@@ -715,9 +698,6 @@ alpha-rarefaction.qzv 文件可视化将显示两个图。第一个图将显示�
   
   ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/evenness.svg)
   
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/25.png)
-  
-  ![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/24.png)
 
 ## 5.8 beta 多样性
 
@@ -761,7 +741,7 @@ time qiime composition add-pseudocount \
 # 差异比较
 time qiime composition ancom \
   --i-table comp-table-l6.qza \
-  --m-metadata-file metadata.tsv \
+  --m-metadata-file table.tsv \
   --m-metadata-column group \
   --o-visualization l6-ancom-group.qzv  
 # 分类学差异直接有名称，不用feature再对应物种注释
@@ -770,6 +750,120 @@ time qiime composition ancom \
 - [ l6-ancom-group.qzv下载 ](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/l6-ancom-group.qzv?raw=true)
 
   ![Iamge text](https://github.com/syq12345678/16S-rRNA/blob/master/prepare/more/picture/ancom.png)
+
+## 5.10 使用R进行微生物组分析
+
+```
+# 定位到当前用户工作目录
+cd ~
+cd qiime2-2020.11/project3
+# 运行 R
+Rscript
+# 安装 phyloseq 和 microbioprocess
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("MicrobiotaProcess")
+if(!requireNamespace("BiocManager")){
+  install.packages("BiocManager")
+}
+BiocManager::install("phyloseq")
+
+# 安装 tidyverse 和 rcolorbrewer
+install.packages(c( "tidyverse", "RColorBrewer"), repos = "http://cran.rstudio.com", dependencies = TRUE)
+# 载入包
+library(MicrobiotaProcess)
+library(phyloseq)
+library(tidyverse)
+library(RColorBrewer)
+# 载入数据
+otu <- "table.qza"
+tree <- "rooted-tree.qza"
+tax <- "taxonomy.qza"
+sample <- "table.tsv"
+ps_dada2 <- import_qiime2(otuqza=otu, taxaqza=tax,
+                       mapfilename=sample,treeqza=tree)
+ps_dada2 
+```
+
+```
+# 物种组成分类可视化
+phytax <- get_taxadf(obj=ps_dada2, taxlevel=3)
+phybar <- ggbartax(obj=phytax) +
+  xlab(NULL) + ylab("relative abundance (%)")+
+  theme(axis.text.x=element_text(face="plain",
+                                 color="black",hjust=0.8,vjust=0.6,
+                                 size=9, angle=90))+
+  theme(legend.position="right")
+phybar
+```
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/23.png)
+
+```
+# rarefaction 可视化
+  p_rare <- ggrarecurve(obj=ps_dada2, 
+                      indexNames=c("Observe","Chao1","ACE"), 
+                      chunks=300) +
+  theme(legend.spacing.y=unit(0.02,"cm"),
+        legend.text=element_text(size=4))+
+  theme_bw()
+p_rare
+
+# alpha 多样性可视化
+alphaobj <- get_alphaindex(ps_dada2)
+
+head(as.data.frame(alphaobj))
+p_alpha <- ggbox(alphaobj, geom="violin", factorNames="group") + 
+  scale_fill_manual(values=c("#F03B20", "#2874C5", "#EABF00"))+
+  theme(strip.background = element_rect(colour=NA, fill="grey"))
+p_alpha
+```
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/25.png)
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/24.png)
+
+```
+# PCA分析
+pcares <- get_pca(obj=ps_dada2, method="hellinger")
+pcaplot <- ggordpoint(obj=pcares, biplot=TRUE, speciesannot=TRUE,
+                      pc=c(1,2),factorNames=c("group"), ellipse=TRUE) + 
+  scale_color_manual(values=c("#F03B20", "#2874C5", "#EABF00"))
+pcaplot
+# PCOA1
+pcoares <- get_pcoa(obj=ps_dada2, 
+                    distmethod="euclidean", method="hellinger")
+pcoaplot <- ggordpoint(obj=pcoares, biplot=TRUE,
+                       speciesannot=TRUE,pc = c(1,2),
+                       factorNames=c("group"), ellipse=T)
+pcoaplot
+# PCOA2
+pcoares <- get_pcoa(obj=ps_dada2, 
+                    distmethod="Unweighted-UniFrac", 
+                    method="hellinger")
+pcoaplot <- ggordpoint(obj=pcoares, biplot=TRUE,
+                       speciesannot=TRUE,
+                       pc = c(1,2),
+                       factorNames=c("group"), ellipse=T)
+pcoaplot
+# PCOA3
+pcoares <- get_pcoa(obj=ps_dada2, 
+                    distmethod="weighted-UniFrac", 
+                    method="hellinger")
+pcoaplot <- ggordpoint(obj=pcoares, biplot=TRUE,
+                       speciesannot=TRUE,
+                       pc = c(1,2),
+                       factorNames=c("group"), ellipse=T)
+pcoaplot
+```
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/26.png)
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/27.png)
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/28.png)
+
+![Image text](https://github.com/syq12345678/16S-rRNA/blob/master/picture/29.png)
 
 引用自：
 
