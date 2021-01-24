@@ -109,6 +109,19 @@ brew install sratoolkit
 brew install parallel
 ```
 
+## 1.4 将uzcat.sh变成可执行文件
+
+```
+# 下载 uzcat.sh
+cd ~
+cd bin
+wget -c https://github.com/syq12345678/16S-rRNA/raw/master/uzcat.sh
+# 将 uzcat.sh 变成可执行文件
+chmod +x uzcat.sh
+# 返回 home 目录
+cd ~
+```
+
 # 2. qiime2 背景介绍
 
 ## 2.1 qiime2 中的几个核心概念
@@ -398,6 +411,8 @@ qiime tools import --show-importable-types
 - 由前面分析可知，这里使用 dada2 进行质量控制并且本例数据为单端测序的数据，因此使用命令 qiime dada2 denoise-single。在本例中，从上图可以看到质量得分在测序运行中相对均匀分布并且大部分序列在416bp以上，因此选择416bp。如果质量得分在左侧有大幅度下降，那么使用 --p-trim-left 命令时应裁掉质量得分成下降趋势的一部分。
 
 ```
+# 命令行查看质量分布表
+bash uzcat.sh demux.qzv quality-plot | pup 'table tr text{}' | grep "\S"
 # 序列质控
 qiime dada2 denoise-single \
 --i-demultiplexed-seqs demux.qza \
@@ -411,8 +426,7 @@ time qiime metadata tabulate \
 --m-input-file stats.qza \
 --o-visualization stats.qzv
 #提取table.tsv文件
-wget -c https://github.com/syq12345678/16S-rRNA/raw/master/table.sh
-bash table.sh stats.qzv >table.tsv
+bash uzcat.sh stats.qzv >table.tsv
 # 特征表摘要可视化
 qiime feature-table summarize \
 --i-table table.qza \
@@ -449,8 +463,7 @@ qiime metadata tabulate \
 --m-input-file taxonomy.qza \
 --o-visualization taxonomy.qzv
 #提取taxonomy.tsv文件
-wget -c https://github.com/syq12345678/16S-rRNA/raw/master/taxonomy.sh
-bash taxonomy.sh taxonomy.qzv >taxonomy.tsv
+bash uzcat.sh taxonomy.qzv >taxonomy.tsv
 # 物种组成柱状图
 qiime taxa barplot \
  --i-table table.qza \
@@ -564,6 +577,8 @@ qiime demux summarize \
 ## 5.4 序列质量控制和特征表
 
 ```
+# 命令行查看质量分布表
+bash uzcat.sh demux.qzv quality-plot | pup 'table tr text{}' | grep "\S"
 # 序列质控
 qiime dada2 denoise-single \
 --i-demultiplexed-seqs demux.qza \
@@ -577,8 +592,7 @@ time qiime metadata tabulate \
 --m-input-file stats.qza \
 --o-visualization stats.qzv
 #提取table.tsv文件
-https://github.com/syq12345678/16S-rRNA/raw/master/table.sh
-bash table.sh stats.qzv >table.tsv
+bash uzcat.sh stats.qzv >table.tsv
 # 特征表摘要可视化
 qiime feature-table summarize \
 --i-table table.qza \
@@ -615,8 +629,7 @@ qiime metadata tabulate \
 --m-input-file taxonomy.qza \
 --o-visualization taxonomy.qzv
 #提取taxonomy.tsv文件
-wget -c https://github.com/syq12345678/16S-rRNA/raw/master/taxonomy.sh
-bash taxonomy.sh taxonomy.qzv >taxonomy.tsv
+bash uzcat.sh taxonomy.qzv >taxonomy.tsv
 # 物种组成柱状图
 qiime taxa barplot \
  --i-table table.qza \
@@ -761,7 +774,7 @@ time qiime composition ancom \
 # 定位到当前用户工作目录
 cd ~
 cd qiime2-2020.11/project3
-# 运行 R
+# 运行 Rstudio
 R
 # 安装 phyloseq 和 microbioprocess
 if (!requireNamespace("BiocManager", quietly=TRUE))
